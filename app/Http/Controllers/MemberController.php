@@ -16,18 +16,9 @@ class MemberController extends Controller
     public function setting(){
         return view('setting');
     }
-<<<<<<< HEAD
     public function talk(){
 
         return view("talk");
     }
 
-=======
-    public function check(){
-        return view('check');
-    }
-    public function detailcheck($id){
-        return view('detail_check',['id'=>$id]);
-    }
->>>>>>> master
 }

@@ -45,24 +45,7 @@
         }
     var shopcart=Array();
     function Add_shopCart(id){
-        var d=document.getElementById('shopcart_'+id)
-        
-        var shopcart2=[];
-        if(d.innerHTML=="加入購物車"){
-            shopcart.push(id)
-            d.innerHTML="已加入"    
-        }
-        else if(d.innerHTML=="已加入"){
-            for(var i=0;i<shopcart.length;i++){
-                if(shopcart[i]!=id)
-                    shopcart2.push(shopcart[i])
-            }
-            shopcart=shopcart2
-            d.innerHTML="加入購物車"
-        }
-        console.log(shopcart)
-       
-        
+        shopcart.push(id)
     }
     function GetShop(){
         $.ajax({
@@ -95,10 +78,10 @@
 
                                 html+="<div class=card-body><h4 class='card-title'>"+data[i].food+"</h4>"
                                 if(data[i].content!=null){
-                                    html+="<p class='card-text'>"+data[i].content+"</p><p class='card-text'>價錢： "+data[i].money+"元</p><a class='card-link text-primary' id='shopcart_"+data[i].id+"' onclick=Add_shopCart("+data[i].id+")>加入購物車</a></div></div></div>"
+                                    html+="<p class='card-text'>"+data[i].content+"</p><p class='card-text'>價錢： "+data[i].money+"元</p><a class='card-link text-primary' onclick=Add_shopCart("+data[i].id+")>加入購物車</a></div></div></div>"
                                 }
                                 else{
-                                    html+="<p class='card-text'>價錢： "+data[i].money+"元</p><a class='card-link text-primary' id='shopcart_"+data[i].id+"' onclick=Add_shopCart("+data[i].id+")>加入購物車</a></div></div></div>"
+                                    html+="<p class='card-text'>價錢： "+data[i].money+"元</p><a class='card-link text-primary' onclick=Add_shopCart("+data[i].id+")>加入購物車</a></div></div></div>"
                                 }
                             }
                              
