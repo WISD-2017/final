@@ -108,15 +108,15 @@
         }
         var cook=Cookies.get('shop');
         $(document).ready(function(){
-            var cook=Cookies.get('shop');
+            var cook=Cookies.get('member');
             console.log(cook)
             if (typeof cook != 'undefined' &&cook!='' && cook!='undefined'){    
-                var html="<div class=dropdown><a class='btn btn-outline-success text-success' role=button id=member data-toggle=dropdown aria-haspopup='true' aria-expanded=false>"+cook+"</a><div class='dropdown-menu bg-dark' aria-labelledby='dropdownMenuButton'><a class='dropdown-item bg-dark text-success' onclick=logout()>登出</a></div></div>"
+                var html="<div class=dropdown><a class='btn btn-outline-success text-success' role=button id=member data-toggle=dropdown aria-haspopup='true' aria-expanded=false>"+cook+"</a><div class='dropdown-menu bg-dark' aria-labelledby='dropdownMenuButton'><a class='dropdown-item bg-dark text-success' href='member/admin'>詳細資料</a><a class='dropdown-item bg-dark text-success' onclick=logout()>登出</a></div></div>"
                 document.getElementById('members').innerHTML=html;
             }   
         });
         function logout(){
-            Cookies.remove('shop');
+            Cookies.remove('member');
             location.href='/';
         }
     </script>
@@ -258,7 +258,7 @@
                             </div>
                         <div class='form-group'>
                             <label for="address">地址</label>
-                            <input type="password" class="form-control" id="address" placeholder="輸入地址">
+                            <input type="text" class="form-control" id="address" placeholder="輸入地址">
                         </div>
                         <p class="h6 text-danger" id="warning"></p>
                         <a role="button" class="btn btn-danger text-light" onclick="reg()">註冊</a>

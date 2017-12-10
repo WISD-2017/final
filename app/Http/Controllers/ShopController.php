@@ -189,37 +189,50 @@ class ShopController extends Controller
         }
         return response()->json(['success' => '1']);
     }
-    public function get_all(Request $request,Shop $shop){
+    public function get_all(Request $request){
         try{
             date_default_timezone_set('Asia/Taipei');
-            
+            $shop=new Shop;
             $datetime= date("H");
             $num = (int)$datetime;
-           
+            $locate=$request['locate'];
+            
+            switch($locate){
+                case 1:
+                    $locate="台北";
+                    break;
+                case 2:
+                    $locate="台中";
+                    break;
+            }
+            
             if($num>=6&&$num<12){
-                $all=$shop::where(['city'=> '台北','moring'=>'1'])->get();
+                $all=$shop::where(['city'=> $locate,'moring'=>'1'])->get();
             }
             if($num>=12&&$num<18){
                 
-                $all=$shop::where(['city'=> '台北','afternoon'=>'1'])->get();
+                $all=$shop::where(['city'=> $locate,'afternoon'=>'1'])->get();
             }
-            if($num>=19&&$num<22){
-                $all=$shop::where(['city'=> '台北','midnight'=>'1'])->get();
+            if($num>=18&&$num<24){
+                $all=$shop::where(['city'=> $locate,'night'=>'1'])->get();
             }
-            if(($num>=22&&$num<=25)||($num>=0&&$num<6)){
-                $all=$shop::where(['city'=> '台北','night'=>'1'])->get();
+
+            if(($num>=0&&$num<6)){
+                $all=$shop::where(['city'=> $locate,'midnight'=>'1'])->get();
             }
             
             foreach($all as $shop){
+               
                 $data[]=array('shop_name'=>$shop->shop_name,'id'=>$shop->id);
             }
             
         }
         catch(\Exception $e){
-            #echo $e;
+           
             return response()->json(['success' => '0']);
         }
-        return response()->json(['success' => '1','data'=>$data]);
+        
+       return response()->json(['success' => '1','data'=>$data]);
         
     }
     public function get_ShopAll_goods(Request $request,Shop $shops){

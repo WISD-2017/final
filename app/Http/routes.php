@@ -44,23 +44,30 @@ Route::group(['prefix' => 'store/admin'],function(){
     
 });
 Route::group(['prefix' => 'member/admin'],function(){
-    Route::get('/','MemberController@index');
+    Route::get('/','MemberController@index');#通知
     Route::get('/setting','MemberController@setting');
+<<<<<<< HEAD
     Route::get('/talk','MemberController@talk');
+=======
+    Route::get('/check','MemberController@check');#訂單瀏覽
+    Route::get('/check/{id}','MemberController@detailcheck');#詳細資訊
+>>>>>>> master
     
 });
 #會員api＋登入註冊+ 設定
 Route::group(['prefix' => 'rest/api'], function () {
     Route::post('/login','AdminController@login');
     Route::post('/register','AdminController@register');
-    Route::post('/shop_login','AdminController@storelogin');
+    Route::post('/shop_login','AdminController@storelogin');#except
     Route::post('/setting','AdminController@setting');
     Route::post('/setting/shop','AdminController@shop');
     Route::post('/setting/recommend','AdminController@recommend');
     Route::post('/setting/disturb','AdminController@disturb');
+    Route::get('/check','AdminController@check');#得到該會員訂單
+    
     
 });
- #api
+ #shop api
 Route::group(['prefix'=>'rest/api/shop'],function(){
     Route::get('/get_all','ShopController@get_all');# 商店全部
     Route::post('upload','ShopController@upload');#上架
@@ -74,6 +81,8 @@ Route::group(['prefix'=>'rest/api/shop'],function(){
     Route::delete('goods_delete','ShopController@goods_delete');#刪除貨物
 });
 Route::group(['prefix'=>'rest/api/buy'],function(){
-    Route::post('/get_goods','BuyController@get_goods');//結帳 
+    Route::post('/get_goods','BuyController@get_goods');//結帳_得到物品
+    Route::post('/checkout','BuyController@checkout'); //結帳2
+    Route::get('/detail','BuyController@detail');#細節
 });
 

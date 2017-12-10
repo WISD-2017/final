@@ -58,8 +58,13 @@
                         if(data.success==1){
                             
                             console.log(Cookies.set('member', account,{ expires: 1 }));
-                            
-                            location.href='member/admin';
+                            var buy=Cookies.get('login')
+                            if(buy==1){
+                                Cookies.remove('login')
+                                location.href='/checkout'
+                            }
+                            else
+                                location.href='member/admin';
                         }
                         else if(data.success==-1){
                             document.getElementById('warning').innerHTML='帳號未啟用'

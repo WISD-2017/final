@@ -95,7 +95,7 @@
 
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="#">EATs</a>
+        <a class="navbar-brand" href="/">EATs</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
             aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -126,13 +126,10 @@
             <nav class="col-2 d-none d-sm-block bg-light sidebar">
                 <ul class="nav nav-pills flex-column ">
                     <li class="nav-item ">
-                        <a class="nav-link " href="#">商店</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link " href="#">通知</a>
+                        <a class="nav-link " href="/member/admin">通知</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">追蹤</a>
+                        <a class="nav-link" href="/member/admin/check">訂單</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/member/admin/talk">聊天室</a>

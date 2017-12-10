@@ -7,6 +7,10 @@ use App\Http\Model\User;
 use App\Http\Requests;
 use \Exception;
 use App\Http\Model\Shop;
+use App\Http\Model\Orderlist;
+use App\Http\Model\Lists;
+use App\Http\Model\Flowchart;
+
 class AdminController extends Controller
 {
     public function login(Request $request){
@@ -43,7 +47,6 @@ class AdminController extends Controller
             return response()->json(['success' => '0']);
         }
     }
-
     public function register(Request $request){
         try{
             $user=new User;
@@ -120,5 +123,20 @@ class AdminController extends Controller
         }
         return response()->json(['success' => '1']);
     }
-    
+    public function search_member($email){
+        $user=new User;
+        $user=$user::where('email',$email)->first();
+        return $user->id;
+    }
+    public function check(Request $request,Orderlist $order){
+        $id=$this->search_member($request['id']);
+        try{
+            $order=$order::where(['user_id'=>$id])->orderBy('updated_at','desc')->take(8)->get();
+            
+        }catch(\Exception $e){
+            //echo $e;
+            return response()->json(['success' => '0']);
+        }
+        return response()->json(['success' => '1','data'=>$order]);
+    }
 }

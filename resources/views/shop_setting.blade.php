@@ -77,7 +77,7 @@
             else
                 data.push(0)
             console.log(data)
-            //.checked="checked"
+            
             $.ajax({
                 url:'/rest/api/shop/setting_time',
                 type:'get',
@@ -102,7 +102,11 @@
                             var shop=document.getElementById('shop_name')
                             
                             shop.value=data.shop_name;
-                            document.getElementById('shop_button').className+='disabled'
+                            
+                            if(shop.value!="") {
+                                document.getElementById('shop_button').className+=' disabled'
+                            }
+                                
                             var Radio1=document.getElementById('Radio1')
                             var Radio2=document.getElementById("Radio2")
                             var Radio3=document.getElementById('Radio3')

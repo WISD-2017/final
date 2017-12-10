@@ -40,13 +40,22 @@
             location.href='/';
         }
         function getshop(){ 
-            var location="{{$locate}}"
+            
+            var locat=location.href.split('/')
+            locat=locat[locat.length-1]
+            console.log(locat)
+            if(locat=="%E5%8F%B0%E5%8C%97")
+                locat=1
+            if(locat=="%E5%8F%B0%E4%B8%AD")
+                locat=2
+            
             $.ajax({
                 url: '/rest/api/shop/get_all',
                 dataType: "json",
                 type: 'get',
-                data: { locate:location},
+                data: { locate:locat},
                 success: function (data) {
+                    console.log(data)
                     var shop=document.getElementById('shop');
                     var html="";
                     if(data.success==1){
