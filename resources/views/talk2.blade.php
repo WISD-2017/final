@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.shopadmin')
 
 @section('content')
     <h1>聊天室</h1>
