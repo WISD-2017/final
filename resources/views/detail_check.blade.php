@@ -51,13 +51,15 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">店家訊息</h4>
-    
-                        
-                        <a href="#" class="card-link">Card link</a>
+                            <p>地址：<small id="addr"></smaill></p>
+                            <p>Emial：<small id="email"></smaill></p>
+                            <div class='text-right'>
+                                <a href="/member/admin/talk" class="card-link">聯絡店家</a>
+                            </div>
                     </div>
                 </div>
-                <a class="btn btn-primary btn-lg btn-block mt-4" href="#" role="button">Google MAP</a>
-                <a class="btn btn-primary btn-lg btn-block" href="#" role="button">完成訂單</a>   
+                <a class="btn btn-success btn-lg btn-block mt-4" href="#" role="button">Google MAP</a>
+                <a class="btn btn-warning btn-lg btn-block" role="button" onclick="check_done()">完成訂單</a>   
             </div>
         </div>
     
@@ -68,14 +70,16 @@
        
 </div>
 <script>
+    
     $(document).ready(function(){
         var id="{{$id}}"
+        var shop=Cookies.get('check')
         console.log(id)
         $.ajax({
             url: '/rest/api/buy/detail',
             dataType: "json",
             type: 'get',
-            data: {orderlist:id},
+            data: {orderlist:id,shop_id:shop},
             success: function (data) {
                 if(data.success==1){
                     var d=data.data
@@ -129,14 +133,20 @@
                             break;
                     }
                     html+="<div class='col-3 mt-4 text-center'>預約服務:</div><div class='col-3 mt-4 text-center'>"+service+"</div><div class='col-3 mt-4 text-center'>預約時間:</div><div class='col-3 mt-4 text-center'>"+d[0].time+"</div>"
-                    //html+="<div class='col-8 mt-4 text-center' style='font-size:1.5rem;'>服務:"+service+"</div><div class='col-4 mt-4 text-center text-warning' style='font-size:1.5rem;'>時間"+d[0].time+"</div>"
                     html+="<div class='col-8 mt-4 text-center' style='font-size:2rem;'>總價:</div><div class='col-4 mt-4 text-center text-info' style='font-size:2rem;'>"+money+"</div"
                     document.getElementById('check_content').innerHTML+=html;
-                    console.log(data)
+                    var d=data.shop
+                    console.log(d)
+                    document.getElementById('email').innerHTML=d[0].email;
+                    document.getElementById('addr').innerHTML=d[0].addr;
                 }
             }
         });
     });
-
+    function check_done(){
+        var id="{{$id}}"
+        var shop=Cookies.get('check')
+        console.log(id)
+    }
 </script>
 @endsection
