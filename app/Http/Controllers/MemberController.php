@@ -27,4 +27,7 @@ class MemberController extends Controller
     public function detailcheck($id){
         return view('detail_check',['id'=>$id]);
     }
+    public function map(){
+        return "not done";
+    }
 }

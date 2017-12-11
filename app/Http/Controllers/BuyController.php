@@ -118,4 +118,20 @@ class BuyController extends Controller
        
         return response()->json(['success' => '1']);
     }
+    public function checkdetial(Request $request){
+        $id=$request['orderlist'];
+        $shop=$request['shop_id'];
+        try{
+            $order=new Orderlist;
+            $o=$order::where(['id'=>$id,'shop_id'=>$shop])->first();
+            $flow=new Flowchart;
+            $time=$this->getTime();
+            $flow->where('id',$o->flowchart_id)->update(['flowchart_done'=>'1','time_done'=>$time]);
+            
+        }catch(\Exception $e){
+            
+            return response()->json(['success' => '0']);
+        }
+        return response()->json(['success'=>'1']);
+    }
 }

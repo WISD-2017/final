@@ -58,8 +58,8 @@
                             </div>
                     </div>
                 </div>
-                <a class="btn btn-success btn-lg btn-block mt-4" href="#" role="button">Google MAP</a>
-                <a class="btn btn-warning btn-lg btn-block" role="button" onclick="check_done()">完成訂單</a>   
+                <a class="btn btn-success btn-lg btn-block mt-4" href="/member/admin/googleMap" role="button">Google MAP</a>
+                <a class="btn btn-warning btn-lg btn-block" role="button" onclick="check_done()" id='done'>完成訂單</a>   
             </div>
         </div>
     
@@ -108,7 +108,7 @@
                         progress.innerHTML='100%'
                         element[3].className+=' text-success';
                         document.getElementById('four').innerHTML=d[0].time4
-                        
+                        document.getElementById('done').className+=' disabled'
                     }
                     var d=data.food
                     var html=""
@@ -146,7 +146,21 @@
     function check_done(){
         var id="{{$id}}"
         var shop=Cookies.get('check')
-        console.log(id)
+        $.ajax({
+            url: '/rest/api/buy/checkdetial',
+            dataType: "json",
+            type: 'post',
+            data: {orderlist:id,shop_id:shop},
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success:function(data){
+                console.log(data)
+                if(data.success==1){
+                    document.getElementById('done').className+=' disabled' 
+                }
+            }
+        });
     }
 </script>
 @endsection

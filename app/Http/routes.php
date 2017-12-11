@@ -48,7 +48,7 @@ Route::group(['prefix' => 'member/admin'],function(){
     Route::get('/setting','MemberController@setting');
 
     Route::get('/talk','MemberController@talk');
-
+    Route::get('/googleMap','MemberController@map');#訂單ＧＯＯＧＬＥ
     Route::get('/check','MemberController@check');#訂單瀏覽
     Route::get('/check/{id}','MemberController@detailcheck');#詳細資訊
 
@@ -84,5 +84,6 @@ Route::group(['prefix'=>'rest/api/buy'],function(){
     Route::post('/get_goods','BuyController@get_goods');//結帳_得到物品
     Route::post('/checkout','BuyController@checkout'); //結帳2
     Route::get('/detail','BuyController@detail');#細節
+    Route::post('/checkdetial','BuyController@checkdetial');
 });
 
