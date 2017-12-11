@@ -30,9 +30,11 @@ class BuyController extends Controller
             $flow=$flow::find($id);
             foreach($flow->get() as $o){
                 $data[]=array('one'=>$o->flowchart_set,'two'=>$o->flowchart_make,'three'=>$o->flowchart_way,'four'=>$o->flowchart_done,
-                'time1'=>$o->time_set,'time2'=>$o->make,'time3'=>$o->way,'time4'=>$o->done);
+                'time1'=>$o->time_set,'time2'=>$o->time_make,'time3'=>$o->time_way,'time4'=>$o->time_done);
             }
-            foreach($flow->orderlist as $o){
+            $or=new OrderList;
+            $or=$or::where('id',$id);
+            foreach($or->get() as $o){
                 $order[]=array('total_money'=>$o->total_money,'service'=>$o->reserve,'time'=>$o->time);
             }
             //echo $id;
@@ -137,15 +139,18 @@ class BuyController extends Controller
     public function shop_detial(Request $request,Flowchart $flow,Lists $lists){
         $id=$request['orderlist'];
         try{
-            $flow=$flow::find($id);
+            $flow=$flow::where('id',$id);
+            
             foreach($flow->get() as $o){
                 $data[]=array('one'=>$o->flowchart_set,'two'=>$o->flowchart_make,'three'=>$o->flowchart_way,'four'=>$o->flowchart_done,
-                'time1'=>$o->time_set,'time2'=>$o->make,'time3'=>$o->way,'time4'=>$o->done);
+                'time1'=>$o->time_set,'time2'=>$o->time_make,'time3'=>$o->time_way,'time4'=>$o->time_done);
             }
-            foreach($flow->orderlist as $o){
+            $or=new OrderList;
+            $or=$or::where('id',$id);
+            foreach($or->get() as $o){
                 $order[]=array('total_money'=>$o->total_money,'service'=>$o->reserve,'time'=>$o->time);
             }
-            //echo $id;
+            
             $lists=$lists::where('orderlists_id',$id)->get();
             for($i=0;$i<count($lists);$i++){
                 $name=$this->get_foodName($lists[$i]->food_id);
@@ -157,30 +162,29 @@ class BuyController extends Controller
                  $us[]=array('email'=>$s->email,'addr'=>$s->address);
              }
         }catch(\Exception $e){
+            //echo $e;
             return response()->json(['success' => '0']);
         }
         return response()->json(['success'=>'1','data'=>$data,'order'=>$order,'food'=>$ll,'user'=>$us]);
     }
-    public function shop_check($order,$id){
-       
+
+    public function shop_check($check,$order){
+        echo $order;
         try{
-            $o=new Orderlist;
-            $o=$o::where(['user_id'=>$id])->first()->flowchart_id;
-            
-            if($order==1){
+            if($check==1){
                 $flow=new Flowchart;
                 $time=$this->getTime();
-                $flow->where('id',$o)->update(['flowchart_make'=>'1','time_make'=>$time]);
+                $flow=$flow::where('id',$order)->update(['flowchart_make'=>'1','time_make'=>$time]);
             }
-            if($order==2){
+            if($check==2){
                 $flow=new Flowchart;
                 $time=$this->getTime();
-                $flow->where('id',$o)->update(['flowchart_way'=>'1','time_way'=>$time]);
+                $flow->where('id',$order)->update(['flowchart_way'=>'1','time_way'=>$time]);
             }
             
         }catch(\Exception $e){
-            echo $e;
-            //return response()->json(['success' => '0']);
+            //echo $e;
+            return response()->json(['success' => '0']);
         }
         return response()->json(['success'=>'1']);
     }

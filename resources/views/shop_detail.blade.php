@@ -76,6 +76,7 @@
     $(document).ready(function(){
         var id="{{$id}}"
         var user=Cookies.get('check_u')
+        
         console.log(id)
         $.ajax({
             url: '/rest/api/buy/shop_detial',
@@ -94,23 +95,28 @@
                         document.getElementById('one').innerHTML=d[0].time1
                     }
                     if(d[0].two==1){
+                        console.log(d)
                         progress.style.width='50%'
                         progress.innerHTML='50%'
                         element[1].className+=' text-success';
+                        console.log(d[0])
                         document.getElementById('two').innerHTML=d[0].time2
+                        document.getElementById('check_detail').innerHTML="訂單運送中"
                     }
                     if(d[0].three==1){
                         progress.style.width='75%';
                         progress.innerHTML='75%'
                         element[2].className+=' text-success';
                         document.getElementById('three').innerHTML=d[0].time3
+                        document.getElementById('check_detail').innerHTML="訂單完成"
+                        document.getElementById('check_detail').className+=' disabled'
                     }
                     if(d[0].four==1){
                         progress.style.width='100%';
                         progress.innerHTML='100%'
                         element[3].className+=' text-success';
                         document.getElementById('four').innerHTML=d[0].time4
-                        document.getElementById('done').className+=' disabled'
+                        document.getElementById('check_detail').className+=' disabled'
                     }
                     var d=data.food
                     var html=""
@@ -148,25 +154,44 @@
     function check_detail(id){
         var element=document.getElementById(id)
         
-        var user=Cookies.get('check_u')
-        console.log(element.innerHTML)
+        var order="{{$id}}"//Cookies.get('check_u')
+        
         
         if(element.innerHTML=="訂單製作中"){
-            var id=1
+            
+            var a=1
+            console.log(a,order)
             $.ajax({
-                url: '/rest/api/buy/shop_check/'+id+"/"+user,
+                url: '/rest/api/buy/shop_check/'+a+"/"+order,
                 type: 'PATCH',
                 headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success:function(data){
-
+                    if(data.success==1){
+                         location.reload();
+                    }
                 }
             });
             element.innerHTML="訂單運送中"
+            
         }
-        if(element.innerHTML=="訂單運送中"){
-            var id=2
+        else if(element.innerHTML=="訂單運送中"){
+            
+            var a=2
+            $.ajax({
+                url: '/rest/api/buy/shop_check/'+a+"/"+order,
+                type: 'PATCH',
+                headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success:function(data){
+                    
+                    if(data.success==1){
+                         location.reload();
+                    }
+                }
+            });
         }
 
     }
