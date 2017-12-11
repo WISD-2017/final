@@ -10,7 +10,7 @@ use App\Http\Model\Shop;
 use App\Http\Model\Orderlist;
 use App\Http\Model\Lists;
 use App\Http\Model\Flowchart;
-
+use App\Http\Model\Foodlist;
 class ShopController extends Controller
 {
     public function Get_Shop_Id($email){
@@ -18,6 +18,7 @@ class ShopController extends Controller
         $user->email=$email;
         $ans=$user->where('email',$user->email)->first()->id;
         return $ans;
+
     }
     public function goods_update(Request $request){
         $foodlist=new foodlist;
