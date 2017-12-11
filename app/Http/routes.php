@@ -79,7 +79,9 @@ Route::group(['prefix'=>'rest/api/shop'],function(){
 Route::group(['prefix'=>'rest/api/buy'],function(){
     Route::post('/get_goods','BuyController@get_goods');//結帳_得到物品
     Route::post('/checkout','BuyController@checkout'); //結帳2
-    Route::get('/detail','BuyController@detail');#細節
-    Route::post('/checkdetial','BuyController@checkdetial');
+    Route::get('/detail','BuyController@detail');# 顧客細節
+    Route::post('/checkdetial','BuyController@checkdetial');#顧客細節2
+    Route::get('/shop_detial','BuyController@shop_detial');
+
 });
 

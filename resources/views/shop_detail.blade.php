@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>{{"訂單編號："}}</h1>
+<h1>{{"訂單編號：$id"}}</h1>
 <div class='row'>
     <div class='col-12'>
         <div class="jumbotron jumbotron-fluid bg-muted">
@@ -50,18 +50,18 @@
             
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">店家訊息</h4>
+                        <h4 class="card-title">顧客訊息</h4>
                             <p>地址：<small id="addr"></smaill></p>
                             <p>Emial：<small id="email"></smaill></p>
                             <div class='text-right'>
-                                <a href="/store/admin/talk" class="card-link">聯絡店家</a>
+                                <a href="/store/admin/talk" class="card-link">聯絡顧客</a>
                             </div>
                     </div>
                 </div>
                 <a class="btn btn-success btn-lg btn-block mt-4" href="/store/admin/googleMap" role="button">Google MAP</a>
-                <a class="btn btn-warning btn-lg btn-block" role="button" onclick="" id=''>完成訂單</a> 
-                <a class="btn btn-warning btn-lg btn-block" role="button" onclick="" id=''>完成訂單</a> 
-                <a class="btn btn-warning btn-lg btn-block" role="button" onclick="" id=''>完成訂單</a>   
+                
+                <a class="btn btn-warning btn-lg btn-block" role="button" onclick="" id=''>訂單製作中</a> 
+                
             </div>
         </div>
     
@@ -73,15 +73,15 @@
 </div>
 <script>
     
-    /*$(document).ready(function(){
+    $(document).ready(function(){
         var id="{{$id}}"
-        var shop=Cookies.get('check')
+        var user=Cookies.get('check_u')
         console.log(id)
         $.ajax({
-            url: '/rest/api/buy/detail',
+            url: '/rest/api/buy/shop_detial',
             dataType: "json",
             type: 'get',
-            data: {orderlist:id,shop_id:shop},
+            data: {orderlist:id,user_id:user},
             success: function (data) {
                 if(data.success==1){
                     var d=data.data
@@ -137,7 +137,7 @@
                     html+="<div class='col-3 mt-4 text-center'>預約服務:</div><div class='col-3 mt-4 text-center'>"+service+"</div><div class='col-3 mt-4 text-center'>預約時間:</div><div class='col-3 mt-4 text-center'>"+d[0].time+"</div>"
                     html+="<div class='col-8 mt-4 text-center' style='font-size:2rem;'>總價:</div><div class='col-4 mt-4 text-center text-info' style='font-size:2rem;'>"+money+"</div"
                     document.getElementById('check_content').innerHTML+=html;
-                    var d=data.shop
+                    var d=data.user
                     console.log(d)
                     document.getElementById('email').innerHTML=d[0].email;
                     document.getElementById('addr').innerHTML=d[0].addr;
