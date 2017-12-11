@@ -60,7 +60,7 @@
                 </div>
                 <a class="btn btn-success btn-lg btn-block mt-4" href="/store/admin/googleMap" role="button">Google MAP</a>
                 
-                <a class="btn btn-warning btn-lg btn-block" role="button" onclick="" id=''>訂單製作中</a> 
+                <a class="btn btn-warning btn-lg btn-block" role="button" onclick="check_detail(this.id)" id='check_detail'>訂單製作中</a> 
                 
             </div>
         </div>
@@ -145,6 +145,30 @@
             }
         });
     });
-    
+    function check_detail(id){
+        var element=document.getElementById(id)
+        
+        var user=Cookies.get('check_u')
+        console.log(element.innerHTML)
+        
+        if(element.innerHTML=="訂單製作中"){
+            var id=1
+            $.ajax({
+                url: '/rest/api/buy/shop_check/'+id+"/"+user,
+                type: 'PATCH',
+                headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success:function(data){
+
+                }
+            });
+            element.innerHTML="訂單運送中"
+        }
+        if(element.innerHTML=="訂單運送中"){
+            var id=2
+        }
+
+    }
 </script>
 @endsection

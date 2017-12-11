@@ -161,4 +161,27 @@ class BuyController extends Controller
         }
         return response()->json(['success'=>'1','data'=>$data,'order'=>$order,'food'=>$ll,'user'=>$us]);
     }
+    public function shop_check($order,$id){
+       
+        try{
+            $o=new Orderlist;
+            $o=$o::where(['user_id'=>$id])->first()->flowchart_id;
+            
+            if($order==1){
+                $flow=new Flowchart;
+                $time=$this->getTime();
+                $flow->where('id',$o)->update(['flowchart_make'=>'1','time_make'=>$time]);
+            }
+            if($order==2){
+                $flow=new Flowchart;
+                $time=$this->getTime();
+                $flow->where('id',$o)->update(['flowchart_way'=>'1','time_way'=>$time]);
+            }
+            
+        }catch(\Exception $e){
+            echo $e;
+            //return response()->json(['success' => '0']);
+        }
+        return response()->json(['success'=>'1']);
+    }
 }

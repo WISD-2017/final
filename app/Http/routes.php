@@ -81,7 +81,8 @@ Route::group(['prefix'=>'rest/api/buy'],function(){
     Route::post('/checkout','BuyController@checkout'); //結帳2
     Route::get('/detail','BuyController@detail');# 顧客細節
     Route::post('/checkdetial','BuyController@checkdetial');#顧客細節2
-    Route::get('/shop_detial','BuyController@shop_detial');
+    Route::get('/shop_detial','BuyController@shop_detial');#店家細節
+    Route::patch('/shop_check/{order}/{id}','BuyController@shop_check');#店家確認
 
 });
 
