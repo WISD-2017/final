@@ -26,4 +26,7 @@ class StoreController extends Controller
     public function setting(){
         return view('shop_setting');
     }
+    public function check(){
+        return view('shop_check');
+    }
 }

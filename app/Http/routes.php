@@ -10,12 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-/*Route::get('/addtalk',function(){
-    return view('talk');
-});
-Route::get('/addtalk2',function(){
-    return view('talk2');
-});*/
+
 Route::get('/', function () {
     return view('index');
 });
@@ -41,12 +36,11 @@ Route::group(['prefix' => 'store/admin'],function(){
     Route::get('goods_update/{id}','StoreController@goods_update');
     Route::get('/setting','StoreController@setting');
     Route::get('/talk','StoreController@talk');
-    
+    Route::get('/check','StoreController@check');
 });
 Route::group(['prefix' => 'member/admin'],function(){
     Route::get('/','MemberController@index');#通知
     Route::get('/setting','MemberController@setting');
-
     Route::get('/talk','MemberController@talk');
     Route::get('/googleMap','MemberController@map');#訂單ＧＯＯＧＬＥ
     Route::get('/check','MemberController@check');#訂單瀏覽
@@ -79,6 +73,7 @@ Route::group(['prefix'=>'rest/api/shop'],function(){
     Route::get('setting','ShopController@setting');
     Route::post('get_ShopAll_goods','ShopController@get_ShopAll_goods');
     Route::delete('goods_delete','ShopController@goods_delete');#刪除貨物
+    Route::get('/check','ShopController@check');
 });
 Route::group(['prefix'=>'rest/api/buy'],function(){
     Route::post('/get_goods','BuyController@get_goods');//結帳_得到物品

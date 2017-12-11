@@ -134,7 +134,7 @@
                         <a class="nav-link" href="/store/admin/talk">聊天室</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link " href="#">訂單管理</a>
+                        <a class="nav-link " href="/store/admin/check">訂單管理</a>
                     </li>
                     
                     <li class="nav-item">

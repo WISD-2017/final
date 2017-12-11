@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 use Storage;
 use Illuminate\Http\Request;
-use \Exception;
+use App\Http\Model\User;
 use App\Http\Requests;
-use App\Http\Model\Foodlist;
+use \Exception;
 use App\Http\Model\Shop;
+use App\Http\Model\Orderlist;
+use App\Http\Model\Lists;
+use App\Http\Model\Flowchart;
 
 class ShopController extends Controller
 {
@@ -248,5 +251,16 @@ class ShopController extends Controller
             }
         }
         return response()->json(['success'=>'1','data'=>$data]);
+    }
+    public function check(Request $request,Orderlist $order){
+        $id=$this->Get_Shop_Id($request['id']);
+        try{
+            $order=$order::where(['shop_id'=>$id])->orderBy('updated_at','desc')->take(30)->get();
+            
+        }catch(\Exception $e){
+            //echo $e;
+            return response()->json(['success' => '0']);
+        }
+        return response()->json(['success' => '1','data'=>$order]);
     }
 }
