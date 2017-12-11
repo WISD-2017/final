@@ -82,6 +82,7 @@
             data: {orderlist:id,shop_id:shop},
             success: function (data) {
                 if(data.success==1){
+                    console.log(data)
                     var d=data.data
                     var element=document.getElementsByClassName('check')
                     var progress=document.getElementById('progress')

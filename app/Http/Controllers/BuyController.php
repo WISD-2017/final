@@ -27,7 +27,7 @@ class BuyController extends Controller
         $id=$request['orderlist'];
         
         try{
-            $flow=$flow::find($id);
+            $flow=$flow::where('id',$id);
             foreach($flow->get() as $o){
                 $data[]=array('one'=>$o->flowchart_set,'two'=>$o->flowchart_make,'three'=>$o->flowchart_way,'four'=>$o->flowchart_done,
                 'time1'=>$o->time_set,'time2'=>$o->time_make,'time3'=>$o->time_way,'time4'=>$o->time_done);
@@ -134,7 +134,8 @@ class BuyController extends Controller
             
             return response()->json(['success' => '0']);
         }
-        return response()->json(['success'=>'1']);
+        //$ans=$this->goods_done($id);
+        return response()->json(['success'=>'1','data'=>$ans]);
     }
     public function shop_detial(Request $request,Flowchart $flow,Lists $lists){
         $id=$request['orderlist'];
@@ -169,7 +170,7 @@ class BuyController extends Controller
     }
 
     public function shop_check($check,$order){
-        echo $order;
+        
         try{
             if($check==1){
                 $flow=new Flowchart;
@@ -187,5 +188,11 @@ class BuyController extends Controller
             return response()->json(['success' => '0']);
         }
         return response()->json(['success'=>'1']);
+    }
+    public function goods_done($id){
+        $lists=new Lists;
+        $lists=$list::where('orderlists_id',$id)->get();
+        return $lists;
+        
     }
 }
