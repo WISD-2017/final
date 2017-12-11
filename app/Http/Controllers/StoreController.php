@@ -29,4 +29,7 @@ class StoreController extends Controller
     public function check(){
         return view('shop_check');
     }
+    public function detailcheck($id){
+        return view('shop_detail',['id'=>$id]);
+    }
 }

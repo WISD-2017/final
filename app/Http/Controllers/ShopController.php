@@ -256,9 +256,8 @@ class ShopController extends Controller
         $id=$this->Get_Shop_Id($request['id']);
         try{
             $order=$order::where(['shop_id'=>$id])->orderBy('updated_at','desc')->take(30)->get();
-            
         }catch(\Exception $e){
-            //echo $e;
+           
             return response()->json(['success' => '0']);
         }
         return response()->json(['success' => '1','data'=>$order]);

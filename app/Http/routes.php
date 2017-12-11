@@ -37,6 +37,7 @@ Route::group(['prefix' => 'store/admin'],function(){
     Route::get('/setting','StoreController@setting');
     Route::get('/talk','StoreController@talk');
     Route::get('/check','StoreController@check');
+    Route::get('check/{id}','StoreController@detailcheck');
 });
 Route::group(['prefix' => 'member/admin'],function(){
     Route::get('/','MemberController@index');#通知
