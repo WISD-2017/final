@@ -134,8 +134,8 @@ class BuyController extends Controller
             
             return response()->json(['success' => '0']);
         }
-        //$ans=$this->goods_done($id);
-        return response()->json(['success'=>'1','data'=>$ans]);
+        $ans=$this->goods_done($id);
+        return response()->json(['success'=>'1']);
     }
     public function shop_detial(Request $request,Flowchart $flow,Lists $lists){
         $id=$request['orderlist'];
@@ -191,8 +191,17 @@ class BuyController extends Controller
     }
     public function goods_done($id){
         $lists=new Lists;
-        $lists=$list::where('orderlists_id',$id)->get();
-        return $lists;
-        
+        $food=new Foodlist;
+        $lists=$lists::where('orderlists_id',$id)->get();
+        foreach($lists as $l){
+            $am=$l->amount;
+            $f=$food->where('food_id',$l->food_id);
+            foreach($f->get()as $a){
+                $c=$a->amount;
+                $b=$c-$am; 
+            }
+            $f=$f->update(['amount'=>$b]);
+        }
+        return $f;
     }
 }

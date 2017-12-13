@@ -158,7 +158,8 @@
             success:function(data){
                 console.log(data)
                 if(data.success==1){
-                    document.getElementById('done').className+=' disabled' 
+                    document.getElementById('done').className+=' disabled'
+                    locatoin.reload();
                 }
             }
         });
