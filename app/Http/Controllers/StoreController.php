@@ -20,7 +20,6 @@ class StoreController extends Controller
         return view('shop_edit');
     }
     public function talk(){
-
         return view("talk2");
     }
     public function setting(){
@@ -31,5 +30,8 @@ class StoreController extends Controller
     }
     public function detailcheck($id){
         return view('shop_detail',['id'=>$id]);
+    }
+    public function shop_revenue_details(){
+        return view('shop_revenue_details');
     }
 }
