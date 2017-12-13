@@ -18,6 +18,11 @@ class BuyController extends Controller
         date_default_timezone_set('Asia/Taipei');
         return date("Y-m-d H:i:s");
     }
+    public function get_shop_name($email){
+        $shop=new Shop;
+        $id=$shop->where('email',$email)->first()->id;
+        return $id;
+    }
     public function getUser($email){
         $user=new User;
         $user=$user::where('email',$email)->first();
@@ -203,5 +208,10 @@ class BuyController extends Controller
             $f=$f->update(['amount'=>$b]);
         }
         return $f;
+    }
+    public function revenue_details($shop_id,Orderlist $order){
+        $id=$this->get_shop_name($shop_id);
+        $order=$order::where('shop_id',$id)->get();
+        //echo $order;
     }
 }

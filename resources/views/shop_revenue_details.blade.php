@@ -67,13 +67,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.js"></script>
 <script>
 $(document).ready(function(){ 
+    console.log(cook)
+    var url='/rest/api/buy/revenue_details/'+cook
     $.ajax({
-        url: '/rest/api/buy/',
+        url: url,
         dataType: "json",
         type: 'get',
-        data: {orderlist:id,shop_id:shop},
         success: function (data) {
-            
+            console.log(data)
         }
     });
     

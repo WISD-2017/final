@@ -36,21 +36,18 @@ Route::group(['prefix' => 'member/admin'],function(){
     Route::get('/googleMap','MemberController@map');#訂單ＧＯＯＧＬＥ
     Route::get('/check','MemberController@check');#訂單瀏覽
     Route::get('/check/{id}','MemberController@detailcheck');#詳細資訊
-
-    
 });
+
 #會員api＋登入註冊+ 設定
 Route::group(['prefix' => 'rest/api'], function () {
     Route::post('/login','AdminController@login');
     Route::post('/register','AdminController@register');
-    Route::post('/shop_login','AdminController@storelogin');#except
+    Route::post('/shop_login','AdminController@storelogin');#except店登入
     Route::post('/setting','AdminController@setting');
     Route::post('/setting/shop','AdminController@shop');
     Route::post('/setting/recommend','AdminController@recommend');
     Route::post('/setting/disturb','AdminController@disturb');
     Route::get('/check','AdminController@check');#得到該會員訂單
-    
-    
 });
  #shop api
 Route::group(['prefix'=>'rest/api/shop'],function(){
@@ -73,6 +70,7 @@ Route::group(['prefix'=>'rest/api/buy'],function(){
     Route::post('/checkdetial','BuyController@checkdetial');#顧客細節2
     Route::get('/shop_detial','BuyController@shop_detial');#店家細節
     Route::patch('/shop_check/{order}/{id}','BuyController@shop_check');#店家確認
+    Route::get('/revenue_details/{shop_id}','BuyController@revenue_details');
 
 });
 
