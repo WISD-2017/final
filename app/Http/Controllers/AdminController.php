@@ -139,4 +139,10 @@ class AdminController extends Controller
         }
         return response()->json(['success' => '1','data'=>$order]);
     }
+    public function chat(Request $request){
+        $user = $this->search_member($request['chat1']);
+        $chat = new Chat;
+
+    }
+
 }
