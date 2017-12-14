@@ -34,4 +34,7 @@ class StoreController extends Controller
     public function shop_revenue_details(){
         return view('shop_revenue_details');
     }
+    public function notic(){
+        return view('shop_notic');
+    }
 }
