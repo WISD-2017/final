@@ -27,7 +27,7 @@
         </form>
      
     </div>
-<div class="table-responsive mt-3">
+<div class="table-responsive mt-3 table-bordered">
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -68,7 +68,7 @@ $(document).ready(function(){
                 var html="";
                 for(var i=0;i<data.length;i++){
                     var j=i+1
-                    html+="<tr><td>"+j+"</td><td>"+data[i].id+"</td><td>"+data[i].money+"</td><td>"+data[i].time+"</td><td><a>詳細</a></td></tr>"
+                    html+="<tr><td>"+j+"</td><td>"+data[i].id+"</td><td>"+data[i].money+"</td><td>"+data[i].time+"</td><td><a class='btn btn-outline-success text-success' onclick='go_link("+data[i].id+")'>詳細</a></td></tr>"
                 }
                 document.getElementById('tbody').innerHTML=html
             }
@@ -82,6 +82,10 @@ function search_id(){
         console.log(text)
     }     
 }
+function go_link(id){
+    var url=""
+    console.log(id)
+}
 function get_dashboard(){
     var url='/rest/api/buy/revenue_dashboard/'+cook
     $.ajax({
@@ -90,74 +94,101 @@ function get_dashboard(){
         type:'get',
         success:function(data){
             console.log(data)
-        }
-    });
-    var ctx = document.getElementById("myChart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["1月", "2月", "3月", "4月", "5月", "6月","7月", "8月", "9月", "10月", "11月", "12月"],
-            datasets: [{
-                label: '# of Votes',
-                data: [40, 19, 3, 5, 2, 3,12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(54, 162, 235, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(54, 162, 235, 1)',
-                ],
-                borderWidth: 2
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero:true
+            if(data.success==1){
+                var d=data.data
+                var ctx = document.getElementById("myChart").getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ["1月", "2月", "3月", "4月", "5月", "6月","7月", "8月", "9月", "10月", "11月", "12月"],
+                        datasets: [{
+                            data: d,
+                            label:"月",
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)',
+                            ],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
                     }
-                }]
+                });
+                //var ctx = document.getElementById("myChart").getContext('2d');
+                var d=data.list
+                
+                d.sort(function(a,b){
+                    return b[1]-a[1]
+                });
+                var name=[]
+                var n=[]
+                var j=0
+                if(d.length>6){
+                    j=6
+                }
+                else{
+                    j=d.length
+                }
+                for(var i=0;i<j;i++){
+                    name.push(d[i][0]);
+                    n.push(d[i][1]);
+                }
+                console.log(name)
+                console.log(n)
+                var ctx = document.getElementById("myChart2").getContext('2d');
+                
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: name,
+                        datasets: [{
+                            label: "食物賣出統計前六名",
+                            data: n,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
+            });
             }
         }
     });
+    
 }
 
-var ctx = document.getElementById("myChart2").getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
 
-});
+
 </script>
 @endsection

@@ -229,29 +229,31 @@ class BuyController extends Controller
         $id=$this->get_shop_name($shop_id);
         $time=$this->getTime2();
         $total=[];
-        for($i=1;$i<10;$i++){
-            $j='0'.$i;
-            $o=$order::where('shop_id',$id)->where('created_at','like','%'.$time.'-'.$j.'%')->sum('total_money');
-            if($o==null ||$o==""){
-                $o=0;
+        try{
+            for($i=1;$i<10;$i++){
+                $j='0'.$i;
+                $o=$order::where('shop_id',$id)->where('created_at','like','%'.$time.'-'.$j.'%')->sum('total_money');
+                if($o==null ||$o==""){
+                    $o=0;
+                }
+                array_push($total,$o);
             }
-            array_push($total,$o);
-        }
-        for($i=10;$i<=12;$i++){
-            $o=$order::where('shop_id',$id)->where('created_at','like','%'.$time.'-'.$i.'%')->sum('total_money');
-            if($o==null ||$o==""){
-                $o=0;
+            for($i=10;$i<=12;$i++){
+                $o=$order::where('shop_id',$id)->where('created_at','like','%'.$time.'-'.$i.'%')->sum('total_money');
+                if($o==null ||$o==""){
+                    $o=0;
+                }
+                array_push($total,(int)$o);
             }
-            array_push($total,$o);
+            $total2=[];
+            $l=$f::where('shop_id',$id)->get();
+            foreach($l as $s){
+                $ll=$lists::where('food_id',$s->food_id)->sum('amount');
+                array_push($total2,[$s->food,(int)$ll]);
+            }
+        }catch(\Exception $e){
+            return response()->json(['success'=>'0']);
         }
-        $l=$f::where('shop_id',$id)->get();
-        foreach($l as $s){
-            echo $s->food_id;
-            $ll=$lists::where('food_id',$s->food_id)->sum('amount');
-            echo $ll;
-        }
-        
-        
-        
+        return response()->json(['success'=>'1','data'=>$total,'list'=>$total2]);
     }
 }
