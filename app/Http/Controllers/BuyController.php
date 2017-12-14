@@ -18,6 +18,10 @@ class BuyController extends Controller
         date_default_timezone_set('Asia/Taipei');
         return date("Y-m-d H:i:s");
     }
+    public function getTime2(){
+        date_default_timezone_set('Asia/Taipei');
+        return date("Y");
+    }
     public function get_shop_name($email){
         $shop=new Shop;
         $id=$shop->where('email',$email)->first()->id;
@@ -210,8 +214,44 @@ class BuyController extends Controller
         return $f;
     }
     public function revenue_details($shop_id,Orderlist $order){
+        $f=new Flowchart;
         $id=$this->get_shop_name($shop_id);
-        $order=$order::where('shop_id',$id)->get();
-        //echo $order;
+        $o=$order::where('shop_id',$id)->get();
+        
+        foreach($o as $s){
+            $a=$f->where('id',$s->id)->first();
+            $data[]=array('id'=>$s->id,'money'=>$s->total_money,'time'=>$a->time_done);
+        }
+        
+        return response()->json(['success'=>'1','data'=>$data]);
+    }
+    public function revenue_dashboard($shop_id,Orderlist $order,Lists $lists,Foodlist $f){
+        $id=$this->get_shop_name($shop_id);
+        $time=$this->getTime2();
+        $total=[];
+        for($i=1;$i<10;$i++){
+            $j='0'.$i;
+            $o=$order::where('shop_id',$id)->where('created_at','like','%'.$time.'-'.$j.'%')->sum('total_money');
+            if($o==null ||$o==""){
+                $o=0;
+            }
+            array_push($total,$o);
+        }
+        for($i=10;$i<=12;$i++){
+            $o=$order::where('shop_id',$id)->where('created_at','like','%'.$time.'-'.$i.'%')->sum('total_money');
+            if($o==null ||$o==""){
+                $o=0;
+            }
+            array_push($total,$o);
+        }
+        $l=$f::where('shop_id',$id)->get();
+        foreach($l as $s){
+            echo $s->food_id;
+            $ll=$lists::where('food_id',$s->food_id)->sum('amount');
+            echo $ll;
+        }
+        
+        
+        
     }
 }

@@ -71,6 +71,6 @@ Route::group(['prefix'=>'rest/api/buy'],function(){
     Route::get('/shop_detial','BuyController@shop_detial');#店家細節
     Route::patch('/shop_check/{order}/{id}','BuyController@shop_check');#店家確認
     Route::get('/revenue_details/{shop_id}','BuyController@revenue_details');
-
+    Route::get('/revenue_dashboard/{shop_id}','BuyController@revenue_dashboard');
 });
 
