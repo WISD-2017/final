@@ -16,15 +16,6 @@
 <div class='col-12'>
     <div class='row'>
         <h2 class='mr-5'>營收明細</h2>
-        <form class="form-inline">
-            <div class="form-group">
-                <label class="col-sm-12 col-form-label">搜尋id:</label>
-            </div>
-            <div class="form-group mx-sm-12">
-                <input type="text" class="form-control" id="table_id" placeholder="搜尋id" >
-                <a  class="btn btn-primary text-light" onclick='search_id()'>確定</a>
-            </div>
-        </form>
      
     </div>
 <div class="table-responsive mt-3 table-bordered">
@@ -76,15 +67,10 @@ $(document).ready(function(){
         }
     });
 });
-function search_id(){
-    var text=document.getElementById('table_id').value
-    if(text!=""){
-        console.log(text)
-    }     
-}
+
 function go_link(id){
-    var url=""
-    console.log(id)
+    var url="/store/admin/check/"+id
+    location.href=url;
 }
 function get_dashboard(){
     var url='/rest/api/buy/revenue_dashboard/'+cook
