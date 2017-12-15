@@ -39,7 +39,9 @@ Route::group(['prefix' => 'member/admin'],function(){
     Route::get('/check','MemberController@check');#訂單瀏覽
     Route::get('/check/{id}','MemberController@detailcheck');#詳細資訊
 });
+Route::group(['prefix'=>'manger'],function(){
 
+});
 #會員api＋登入註冊+ 設定
 Route::group(['prefix' => 'rest/api'], function () {
     Route::post('/login','AdminController@login');
@@ -77,6 +79,9 @@ Route::group(['prefix'=>'rest/api/buy'],function(){
     Route::patch('/shop_check/{order}/{id}','BuyController@shop_check');#店家確認
     Route::get('/revenue_details/{shop_id}','BuyController@revenue_details');
     Route::get('/revenue_dashboard/{shop_id}','BuyController@revenue_dashboard');
-    
+});
+// 課服 api
+Route::group(['prefix'=>'rest/api/manger'],function(){
+
 });
 
