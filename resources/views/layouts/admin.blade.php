@@ -90,6 +90,10 @@
             padding-top: 1.5rem;
             padding-bottom: 1.5rem;
         }
+        #map{
+            height:1000px;
+            width:100%;
+        }
     </style>
 </head>
 

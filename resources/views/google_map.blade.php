@@ -1,47 +1,44 @@
-<!DOCTYPE html>
-<html>
-  <head>
-   <meta charset="utf-8">
-    <meta name="csrf-token" content={{csrf_token()}}>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
-        crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" idropdownMenuButtonntegrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    
-    <style>
-       #map {
-        height: 1000px;
-        width: 100%;
-       }
-       #right-panel{
-           height:100%;
 
-       }
-    </style>
-  </head>
-  <body>
-  <div class="container-fluid">
-        <div class="row">
-            <div class='col-12'>AA</div>
-            <div class='col-9'>
-                <div id="map" ></div>
-            </div>
-            <div class='col-3' id='right-panel'>
+@extends('layouts.admin')
 
-
+@section('content')
+<div class='row'>
+    <div class='col-12'>
+        <div class="jumbotron jumbotron-fluid bg-muted">
+            <div class="container">
+                <div class="progress" style="height:30px;">
+                    <div id='progress' class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 25%"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                </div>
+                <div class='row mt-4'>
+                    <div class='col text-center'>
+                        <p class="lead text-success check">訂單建立</p>
+                        <small id='one'></small>
+                    </div>
+                    <div class='col text-center'>
+                        <p class="lead check">訂單製作</p>
+                        <small id='two'></small>
+                    </div>
+                    <div class='col text-center'>
+                        <p class="lead check">訂單運送</p>
+                        <small id='three'></small>
+                    </div>
+                    <div class='col text-center'>
+                        <p class="lead check">訂單完成</p>
+                        <small id='four'></small>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>
-   
+    <div class='col-12'>
+        <div id='map'></div>
+
+    </div>
+</div>
     <script>
-      function initMap() {
+    
+    function initMap() {
         var directionsService = new google.maps.DirectionsService;
         var directionsDisplay;
         var  map = new google.maps.Map(document.getElementById('map'), {
@@ -53,7 +50,7 @@
                 'preserveViewport': true,
                 'draggable': true
         });
-        directionsDisplay.setPanel(document.getElementById('right-panel'));
+        
         var start="台北市中正區北平西路3號";
         var end="台北市文山區新光路二段30號"
         var request = {
@@ -69,10 +66,9 @@
                     }
                 });
      
-      }
+    }
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvzZj_o6PJSFi0GStAwPeDTBGjl4qIBM4&callback=initMap">
     </script>
-  </body>
-</html>
+    @endsection
