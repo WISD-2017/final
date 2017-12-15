@@ -76,7 +76,7 @@
     $(document).ready(function(){
         var id="{{$id}}"
         var user=Cookies.get('check_u')
-        
+        Cookies.set('order',id);
         console.log(id)
         $.ajax({
             url: '/rest/api/buy/shop_detial',
