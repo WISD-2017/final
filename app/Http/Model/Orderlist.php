@@ -11,6 +11,6 @@ class Orderlist extends Model
         return $this->belongsTo('App\Http\Model\Flowchart');
     }
     public function get_flowchart_time(){
-        return $this->hasMany('App\Http\Model\Flowchart');
+        return $this->belongsTo('App\Http\Model\Flowchart','id');
     }
 }

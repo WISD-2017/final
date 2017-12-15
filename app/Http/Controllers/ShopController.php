@@ -11,6 +11,8 @@ use App\Http\Model\Orderlist;
 use App\Http\Model\Lists;
 use App\Http\Model\Flowchart;
 use App\Http\Model\Foodlist;
+
+
 class ShopController extends Controller
 {
     public function Get_Shop_Id($email){
@@ -262,5 +264,30 @@ class ShopController extends Controller
             return response()->json(['success' => '0']);
         }
         return response()->json(['success' => '1','data'=>$order]);
+    }
+    public function notic($id){
+        $order=new Orderlist;
+        $id=$this->Get_Shop_Id($id);
+        $o=$order->where('shop_id',$id)->get();
+        $f=[];
+        $flow=new Flowchart;
+        foreach($o as $s){  
+            array_push($f,$s->flowchart_id);
+        }
+        $a=$flow::whereIn('id',$f)->where('flowchart_set','1')->where('flowchart_make','0')->orderBy('time_set','desc')->get();
+        $p=$flow::whereIn('id',$f)->where('flowchart_done','1')->orderBy('time_done','desc')->get();
+        foreach($p as $s){
+            $data[]=array('id'=>$s->id,'time'=>$s->time_done);
+        }
+        if (count($a)>0){
+            foreach($a as $s){
+                $data2[]=array('id'=>$s->id,'time'=>$s->time_set);
+            }
+        }
+        else{
+            $data2=0;
+        }
+       return response()->json(['success' => '1','data'=>$data,'data2'=>$data2]);
+        
     }
 }

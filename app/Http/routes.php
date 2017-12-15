@@ -63,6 +63,7 @@ Route::group(['prefix'=>'rest/api/shop'],function(){
     Route::post('get_ShopAll_goods','ShopController@get_ShopAll_goods');
     Route::delete('goods_delete','ShopController@goods_delete');#刪除貨物
     Route::get('/check','ShopController@check');
+    Route::post('/notic/{id}','ShopController@notic');
 });
 Route::group(['prefix'=>'rest/api/buy'],function(){
     Route::post('/get_goods','BuyController@get_goods');//結帳_得到物品
