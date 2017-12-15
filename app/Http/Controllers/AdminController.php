@@ -171,4 +171,24 @@ class AdminController extends Controller
        return response()->json(['success' => '1','data'=>$data,'data2'=>$data2]);
         
     }
+    public function map(Request $request){
+        $id=$request['flow'];
+       
+        try{
+            $flow=new Flowchart;
+            $flow=$flow->where('id',$id)->first();
+            $order=new Orderlist;
+            $o=$order->where('id',$id)->first();
+            $user=$o->user_id;
+            $shop=$o->shop_id;
+            $u=new User;
+            $s=new Shop;
+            $u=$u->where('id',$user)->first();
+            $s=$s->where('id',$shop)->first();
+            $data2=['user_addr'=>$u->address,'shop_addr'=>$s->address];
+        }catch(\Exception $e){
+            return response()->json(['success' => '0']);
+        }
+        return response()->json(['success' => '1','data'=>$flow,'data2'=>$data2]);
+    }
 }

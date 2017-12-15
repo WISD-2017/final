@@ -74,6 +74,7 @@
     $(document).ready(function(){
         var id="{{$id}}"
         var shop=Cookies.get('check')
+        Cookies.set('order',id)
         console.log(id)
         $.ajax({
             url: '/rest/api/buy/detail',
