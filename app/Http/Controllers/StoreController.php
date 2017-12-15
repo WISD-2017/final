@@ -37,4 +37,7 @@ class StoreController extends Controller
     public function notic(){
         return view('shop_notic');
     }
+    public function map(){
+        return view('shop_map');
+    }
 }

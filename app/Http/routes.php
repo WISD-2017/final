@@ -29,6 +29,7 @@ Route::group(['prefix' => 'store/admin'],function(){
     Route::get('check/{id}','StoreController@detailcheck');
     Route::get('/shop_revenue_details','StoreController@shop_revenue_details');
     Route::get('/update','StoreController@index');
+    Route::get('googleMap','StoreController@map');
 });
 Route::group(['prefix' => 'member/admin'],function(){
     Route::get('/','MemberController@index');#通知
