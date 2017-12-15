@@ -28,6 +28,6 @@ class MemberController extends Controller
         return view('detail_check',['id'=>$id]);
     }
     public function map(){
-        return "not done";
+        return  view('google_map');
     }
 }
