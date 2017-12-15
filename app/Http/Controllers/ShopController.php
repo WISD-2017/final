@@ -216,7 +216,7 @@ class ShopController extends Controller
                 $all=$shop::where(['city'=> $locate,'moring'=>'1'])->get();
             }
             if($num>=12&&$num<18){
-                
+               
                 $all=$shop::where(['city'=> $locate,'afternoon'=>'1'])->get();
             }
             if($num>=18&&$num<24){

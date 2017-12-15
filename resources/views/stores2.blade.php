@@ -142,10 +142,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <nav class="navbar navbar-dark bg-dark">
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="text" placeholder="請輸入外送地址" aria-label="Search" id="locate" >
-                            <a class="btn btn-outline-success my-2 my-sm-0 text-success" role="button" onclick="golink()">搜尋</a>
-                        </form>
+                       
                     </nav>
                 </ul>
                 <ul class="navbar-nav" id="members">

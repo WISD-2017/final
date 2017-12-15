@@ -44,7 +44,8 @@
             var locat=location.href.split('/')
             locat=locat[locat.length-1]
             console.log(locat)
-            if(locat=="%E5%8F%B0%E5%8C%97")
+            // %20%E5%8F%B0%E5%8C%97
+            if(locat=="%E5%8F%B0%E5%8C%97" || locat=="%20%E5%8F%B0%E5%8C%97")
                 locat=1
             if(locat=="%E5%8F%B0%E4%B8%AD")
                 locat=2
@@ -63,7 +64,7 @@
                         console.log(d)
                         for(var i=0;i<d.length;i++){
                             console.log(i)
-                            html="<div class='col-4 mt-5' style='width: 35rem;'><div class='card'><div class='card-body'><h4 class='card-title'>"+d[i].shop_name+"</h4><a class='card-link text-primary' onclick='link_click("+d[i].id+")'>瀏覽</a></div></div></div"
+                            html="<div class='col-4 mt-5' style='width: 35rem;'><div class='card'><div class='card-body'><h4 class='card-title'>"+d[i].shop_name+"</h4><a class='card-link text-primary' onclick='link_click("+d[i].id+")'>瀏覽</a></div></div></div>"
                             shop.innerHTML+=html;
                         }
                        
