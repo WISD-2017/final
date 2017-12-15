@@ -139,4 +139,36 @@ class AdminController extends Controller
         }
         return response()->json(['success' => '1','data'=>$order]);
     }
+    public function notic($id){
+        $order=new Orderlist;
+        $id=$this->search_member($id);
+        $o=$order->where('user_id',$id)->get();
+        $f=[];
+        $flow=new Flowchart;
+        foreach($o as $s){  
+            array_push($f,$s->flowchart_id);
+        }
+        $a=$flow::whereIn('id',$f)->where('flowchart_set','1')->where('flowchart_make','1')->where('flowchart_done','0')->orderBy('time_make','desc')->get();
+        $p=$flow::whereIn('id',$f)->where('flowchart_make','1')->where('flowchart_way','1')->where('flowchart_done','0')->orderBy('time_way','desc')->get();
+        
+        if(count($p)>0){
+            
+            foreach($p as $s){
+                $data[]=array('id'=>$s->id,'time'=>$s->time_way);
+            }
+        }
+        else{
+            $data=0;
+        }
+        if (count($a)>0){
+            foreach($a as $s){
+                $data2[]=array('id'=>$s->id,'time'=>$s->time_make);
+            }
+        }
+        else{
+            $data2=0;
+        }
+       return response()->json(['success' => '1','data'=>$data,'data2'=>$data2]);
+        
+    }
 }

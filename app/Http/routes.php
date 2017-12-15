@@ -49,6 +49,7 @@ Route::group(['prefix' => 'rest/api'], function () {
     Route::post('/setting/recommend','AdminController@recommend');
     Route::post('/setting/disturb','AdminController@disturb');
     Route::get('/check','AdminController@check');#得到該會員訂單
+    Route::post('/notic/{id}','AdminController@notic');
 });
  #shop api
 Route::group(['prefix'=>'rest/api/shop'],function(){
