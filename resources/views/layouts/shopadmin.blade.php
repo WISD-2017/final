@@ -128,10 +128,10 @@
             <nav class="col-2 d-none d-sm-block bg-light sidebar">
                 <ul class="nav nav-pills flex-column ">
                     <li class="nav-item ">
-                        <a class="nav-link " href="/store/admin/notic">通知</a>
+                        <a class="nav-link " href="/store/admin/">通知</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link " href="/store/admin">上架</a>
+                        <a class="nav-link " href="/store/admin/update">上架</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/store/admin/talk">聊天室</a>
