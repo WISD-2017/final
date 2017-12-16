@@ -8,11 +8,11 @@
                 <thead>
                     <tr>
                         <th scope="col">id</th>
-                        <th scope="col">帳號</th>
-                        <th scope="col">城市</th>
-                        <th scope="col">地址</th>
-                        <th scope="col">帳號啟用</th>
-                        <th scope='col'>BAN</th>
+                        <th scope="col">訂單編號</th>
+                        <th scope="col">店家</th>
+                        <th scope="col">顧客</th>
+                        <th scope="col">申請原因</th>
+                        <th scope="col">詳細</th>
                     </tr>
                 </thead>
                 <tbody id='manager'>
@@ -31,7 +31,7 @@
     <script>
         $(document).ready(function(){
             $.ajax({
-                    url: '/rest/api/manger/shop',
+                    url: '/rest/api/manger/check',
                     dataType: "json",
                     type: 'get',
                     success:function(data){
@@ -39,15 +39,14 @@
                         if(data.success==1){
                             var html=""
                             var d=data.data
+                            console.log(d)
                             for(var i=0;i<d.length;i++){
                                 var j=i+1
-                                html+="<tr><th scope='row'>"+j+"</th><td>"+d[i].email+"</td><td>"+d[i].city+"</td><td>"+d[i].address+"</td>"
-                                if(d[i].active==1){
-                                    html+="<td>啟用</td><td><a class='btn btn-danger text-light' role='button' onclick=ban("+d[i].id+",0)>BAN</a></td></tr>"
-                                }else{
-                                    html+="<td>ＢＡＮ</td><td><a class='btn btn-success text-light' role='button' onclick=ban("+d[i].id+",1)>解BAN</a></td></tr>"
+                                if(d[i].exception==-1){
+                                    html+="<tr><th scope='row'>"+j+"</th><td>"+d[i].id+"</td><td>"+d[i].shop+"</td><td>"+d[i].user+"</td><td></td><td><a href=/check/"+d[i].id+" onclick=detail("+d[i].shop+")>詳細</a></td></tr>"
+                                }else{html+="<tr><th scope='row'>"+j+"</th><td>"+d[i].id+"</td><td>"+d[i].shop+"</td><td>"+d[i].user+"</td><td>"+d[i].exception+"</td><td><a href=/check/"+d[i].id+" onclick=detail("+d[i].shop+")>詳細</a></td></tr>"
+
                                 }
-                                // html+="<td><a class='btn btn-primary text-light' role='button'>BAN</a></td></tr>"
                             }
                             document.getElementById('manager').innerHTML=html;
                         }
@@ -56,12 +55,15 @@
                     }
                 });
         });
+        function detail(shop){
+            Cookies.set('check',shop)
+        }
         function ban(id,n){
             console.log(id,n)
-            var url='/rest/api/manger/ban_shop/'+id+'/'+n
+            // var url='/rest/api/manger/ban_shop/'+id+'/'+n
 
             $.ajax({
-                url: url,
+                // url: url,
                 dataType: "json",
                 type: 'patch',
                 headers: {

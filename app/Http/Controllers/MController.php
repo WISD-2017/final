@@ -81,4 +81,22 @@ class MController extends Controller
         
         return response()->json(['success'=>'1']);
     }
+    public function check(){
+        $order=new Orderlist;
+        try{
+            $order=$order::all();
+            $flow=new Flowchart;
+            $user=new User;
+            $shop=new Shop;
+            foreach($order as $a){
+                $flow=$flow::where('id',$a->id)->first();
+                $user=$user::where('id',$a->user_id)->first();
+                $shop=$shop::where('id',$a->shop_id)->first();
+                $data[]=array('id'=>$a->id,'exception'=>$flow->exception,'user'=>$user->email,'shop'=>$shop->email);
+            }
+        }catch(\Exception $e){
+            return response()->json(['success'=>'0']);
+        }
+        return response()->json(['success'=>'1','data'=>$data]);
+    }
 }
