@@ -40,7 +40,7 @@ Route::group(['prefix' => 'member/admin'],function(){
     Route::get('/check/{id}','MemberController@detailcheck');#詳細資訊
 });
 Route::group(['prefix'=>'manger'],function(){
-
+    Route::get('/','ManagerController@index');
 });
 #會員api＋登入註冊+ 設定
 Route::group(['prefix' => 'rest/api'], function () {
