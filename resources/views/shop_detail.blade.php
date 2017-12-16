@@ -58,10 +58,10 @@
                             </div>
                     </div>
                 </div>
-                <a class="btn btn-success btn-lg btn-block mt-4" href="/store/admin/googleMap" role="button">Google MAP</a>
+                <a class="btn btn-success btn-lg btn-block mt-2" href="/store/admin/googleMap" role="button">Google MAP</a>
                 
                 <a class="btn btn-warning btn-lg btn-block" role="button" onclick="check_detail(this.id)" id='check_detail'>訂單製作中</a> 
-                
+                <a class="btn btn-danger btn-lg btn-block text-light" role="button" onclick="return_good()" id="return_good">申請退貨</a> 
             </div>
         </div>
     
@@ -72,7 +72,21 @@
        
 </div>
 <script>
-    
+    function return_good(){
+        var order="{{$id}}"
+        $.ajax({
+            url: '/rest/api/buy/return_good/'+order,
+            type: 'PATCH',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success:function(data){
+                if(data.success==1){
+                    location.href='/store/admin/check';
+                }
+            }
+        });
+    }
     $(document).ready(function(){
         var id="{{$id}}"
         var user=Cookies.get('check_u')
@@ -102,6 +116,7 @@
                         console.log(d[0])
                         document.getElementById('two').innerHTML=d[0].time2
                         document.getElementById('check_detail').innerHTML="訂單運送中"
+                        document.getElementById('return_good').className+=' disabled'
                     }
                     if(d[0].three==1){
                         progress.style.width='75%';
@@ -117,6 +132,9 @@
                         element[3].className+=' text-success';
                         document.getElementById('four').innerHTML=d[0].time4
                         document.getElementById('check_detail').className+=' disabled'
+                       
+                        
+
                     }
                     var d=data.food
                     var html=""

@@ -83,6 +83,7 @@ Route::group(['prefix'=>'rest/api/buy'],function(){
     Route::patch('/shop_check/{order}/{id}','BuyController@shop_check');#店家確認
     Route::get('/revenue_details/{shop_id}','BuyController@revenue_details');
     Route::get('/revenue_dashboard/{shop_id}','BuyController@revenue_dashboard');
+    Route::patch('/return_good/{order}','BuyController@return_good');
 });
 // 課服 api
 Route::group(['prefix'=>'rest/api/manger'],function(){
