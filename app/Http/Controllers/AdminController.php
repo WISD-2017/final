@@ -197,4 +197,10 @@ class AdminController extends Controller
         }
         return response()->json(['success' => '1','data'=>$flow,'data2'=>$data2]);
     }
+    public function chat(Request $request){
+        $chat1=$request['chat1'];
+        echo $chat1;
+
+    }
+
 }
