@@ -142,9 +142,53 @@ class MController extends Controller
         return response()->json(['success'=>'1','data'=>$data,'order'=>$order,'food'=>$ll,'shop'=>$shops,'user'=>$users]);
     }
     public function setting(){
+        try{
+            $files = Storage::disk('local2')->allFiles();
+            $photo=[];
+            foreach($files as $f){
+                $p=explode(".",$f);
+                if($p[1]=="jpg"){
+                    array_push($photo,$f);
+                }
+            }
+        }
+        catch(\Exception $e){
+            return response()->json(['success'=>'0']);
+        }
+        return response()->json(['success'=>'1','data'=>$photo]);
         
-        $files = Storage::disk('local2')->allFiles();
-        
-        print_r($files);
     }
+    public function update(Request $request){
+        $url=$request['url'];
+        try{
+            $img=str_replace('data:image/jpeg;base64,', '', $url);
+            $img = str_replace(' ', '+', $img);
+            $img = base64_decode($img);
+            $path='img_'.time().'.jpg';
+            $exists = Storage::disk('local2')->exists($path);
+            if($exists==1){
+                return response()->json(['success' => '0']);
+            }
+            else{
+                Storage::disk('local2')->put($path, $img);
+            }
+        }catch(\Exception $e){
+            return response()->json(['success'=>'0']);
+        }
+        return response()->json(['success' => '1']);
+    }
+    public function del(Request $request){
+        $url=$request['url'];
+        try{
+           
+            
+            $exists = Storage::disk('local2')->delete($url);
+            
+        }catch(\Exception $e){
+            // echo $e;
+            return response()->json(['success'=>'0']);
+        }
+        return response()->json(['success' => '1']);
+    }
+    
 }

@@ -94,6 +94,9 @@
             height:1000px;
             width:100%;
         }
+        figcaption{
+            cursor:pointer;
+        }
     </style>
 </head>
 
@@ -139,7 +142,7 @@
                         <a class="nav-link" href="/manger/check">訂單管理</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/manger/setting">設定</a>
+                        <a class="nav-link" href="/manger/setting">輪播設定</a>
                     </li> 
                 </ul>
             </nav>

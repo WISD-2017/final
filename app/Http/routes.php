@@ -98,5 +98,7 @@ Route::group(['prefix'=>'rest/api/manger'],function(){
     Route::get('/check','MController@check');
     Route::get('/detail','MController@detail');
     Route::get('setting','MController@setting');
+    Route::post('update','MController@update');
+    Route::post('del','MController@del');
 });
 
