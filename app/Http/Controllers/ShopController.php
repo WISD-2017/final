@@ -253,13 +253,21 @@ class ShopController extends Controller
     }
     public function check(Request $request,Orderlist $order){
         $id=$this->Get_Shop_Id($request['id']);
+        $flow=new Flowchart;
         try{
             $order=$order::where(['shop_id'=>$id])->orderBy('updated_at','desc')->take(30)->get();
+            
+            foreach($order as $a){
+                $f=$flow::where('id',$a->id)->first();
+                echo $a->create_at;
+                 $data[]=array('id'=>$a->id,'created_at'=>$a->created_at,'exception'=>$f->exception,'user_id'=>$a->user_id);
+            }
+            
         }catch(\Exception $e){
            
             return response()->json(['success' => '0']);
         }
-        return response()->json(['success' => '1','data'=>$order]);
+          return response()->json(['success' => '1','data'=>$data]);
     }
     public function notic($id){
         $order=new Orderlist;

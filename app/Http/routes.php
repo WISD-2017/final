@@ -91,5 +91,6 @@ Route::group(['prefix'=>'rest/api/manger'],function(){
     Route::patch('/ban/{id}/{n}','MController@ban');
     Route::get('/shop','MController@get_shop');
     Route::patch('/ban_shop/{id}/{n}','Mcontroller@ban_shop');
+    
 });
 
