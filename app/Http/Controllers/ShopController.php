@@ -211,24 +211,20 @@ class ShopController extends Controller
                     $locate="台中";
                     break;
             }
-            
             if($num>=6&&$num<12){
-                $all=$shop::where(['city'=> $locate,'moring'=>'1'])->get();
+                $all=$shop::where(['city'=> $locate,'moring'=>'1','active'=>'1'])->get();
             }
             if($num>=12&&$num<18){
                
-                $all=$shop::where(['city'=> $locate,'afternoon'=>'1'])->get();
+                $all=$shop::where(['city'=> $locate,'afternoon'=>'1','active'=>'1'])->get();
             }
             if($num>=18&&$num<24){
-                $all=$shop::where(['city'=> $locate,'night'=>'1'])->get();
+                $all=$shop::where(['city'=> $locate,'night'=>'1','active'=>'1'])->get();
             }
-
             if(($num>=0&&$num<6)){
-                $all=$shop::where(['city'=> $locate,'midnight'=>'1'])->get();
+                $all=$shop::where(['city'=> $locate,'midnight'=>'1','active'=>'1'])->get();
             }
-            
             foreach($all as $shop){
-               
                 $data[]=array('shop_name'=>$shop->shop_name,'id'=>$shop->id);
             }
             

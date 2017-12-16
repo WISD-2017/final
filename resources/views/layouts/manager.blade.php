@@ -133,13 +133,13 @@
                         <a class="nav-link" href="/manger">會員管理</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">訂單管理</a>
+                        <a class="nav-link" href="/manger/shop">店家管理</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">食物管理</a>
+                        <a class="nav-link" href="/manger/check">訂單管理</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">聊天室</a>
+                        <a class="nav-link" href="#">申訴區域</a>
                     </li> 
                 </ul>
             </nav>

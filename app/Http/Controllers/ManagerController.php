@@ -14,7 +14,11 @@ class ManagerController extends Controller
     }
     public function login(){
         return view('m_login');
-
     }
-    
+    public function shop(){
+        return view('m_shop');
+    }
+    public function check(){
+        return view('m_check');
+    }
 }

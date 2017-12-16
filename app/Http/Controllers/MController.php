@@ -64,4 +64,21 @@ class MController extends Controller
         
         return response()->json(['success'=>'1']);
     }
+    public function get_shop(){
+        $user=new Shop;
+        
+        try{
+            $user=$user::all();
+        }catch(\Exception $e){
+            return response()->json(['success'=>'0']);
+        }
+        return response()->json(['success'=>'1','data'=>$user]);
+    }
+    public function ban_shop($id,$n){
+        $user=new Shop;
+        
+        $user=$user->where('id',$id)->update(['active'=>$n]);
+        
+        return response()->json(['success'=>'1']);
+    }
 }
