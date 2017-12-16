@@ -25,6 +25,9 @@ class AdminController extends Controller
             if($active==1&&$pas==$user->password){
                 return response()->json(['success' => '1']);
             }
+            else{
+                return response()->json(['success' => '-1']);
+            }
         }
         catch(\Exception $e){
                 return response()->json(['success' => '0']);

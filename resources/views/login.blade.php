@@ -55,6 +55,7 @@
                     },
                     data: { id: account,password:pas },
                     success: function (data) {
+                        console.log(data.success)
                         if(data.success==1){
                             
                             console.log(Cookies.set('member', account,{ expires: 1 }));

@@ -130,7 +130,7 @@
             <nav class="col-2 d-none d-sm-block bg-light sidebar">
                 <ul class="nav nav-pills flex-column ">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">會員管理</a>
+                        <a class="nav-link" href="/manger">會員管理</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">訂單管理</a>
@@ -138,12 +138,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">食物管理</a>
                     </li>
-                    
                     <li class="nav-item">
                         <a class="nav-link" href="#">聊天室</a>
-                    </li>
-                    
-                    
+                    </li> 
                 </ul>
             </nav>
             <main class='col-10 pt-3 ml-sm-auto' role="main">

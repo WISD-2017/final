@@ -85,5 +85,7 @@ Route::group(['prefix'=>'rest/api/buy'],function(){
 Route::group(['prefix'=>'rest/api/manger'],function(){
     Route::post('/reg','MController@reg');
     Route::post('/login','MController@login');
+    Route::get('/user','MController@get_user');
+    Route::patch('/ban/{id}/{n}','MController@ban');
 });
 
