@@ -45,6 +45,7 @@ Route::group(['prefix'=>'manger'],function(){
     Route::get('/shop','ManagerController@shop');
     Route::get('/check','ManagerController@check');
     Route::get('/detail/{id}','ManagerController@detail');
+    Route::get('setting','ManagerController@setting');
 });
 #會員api＋登入註冊+ 設定
 Route::group(['prefix' => 'rest/api'], function () {
@@ -96,5 +97,6 @@ Route::group(['prefix'=>'rest/api/manger'],function(){
     Route::patch('/ban_shop/{id}/{n}','Mcontroller@ban_shop');
     Route::get('/check','MController@check');
     Route::get('/detail','MController@detail');
+    Route::get('setting','MController@setting');
 });
 

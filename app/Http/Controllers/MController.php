@@ -12,6 +12,7 @@ use App\Http\Model\Lists;
 use App\Http\Model\Manager;
 use App\Http\Requests;
 use \Exception;
+use Storage;
 class MController extends Controller
 {
     //
@@ -139,5 +140,11 @@ class MController extends Controller
             return response()->json(['success' => '0']);
         }
         return response()->json(['success'=>'1','data'=>$data,'order'=>$order,'food'=>$ll,'shop'=>$shops,'user'=>$users]);
+    }
+    public function setting(){
+        
+        $files = Storage::disk('local2')->allFiles();
+        
+        print_r($files);
     }
 }

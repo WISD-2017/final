@@ -24,4 +24,7 @@ class ManagerController extends Controller
     public function detail($id){
         return view('m_detail',['id'=>$id]);
     }
+    public function setting(){
+        return view('m_setting');
+    }
 }
