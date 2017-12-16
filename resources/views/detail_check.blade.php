@@ -60,7 +60,7 @@
                 </div>
                 <a class="btn btn-success btn-lg btn-block mt-4" href="/member/admin/googleMap" role="button">Google MAP</a>
                 <a class="btn btn-warning btn-lg btn-block" role="button" onclick="check_done()" id='done'>完成訂單</a>  
-                <a class="btn btn-danger btn-lg btn-block" role="button" onclick="return_goods()" id="return_good" >申請退貨</a>   
+                <a class="btn btn-danger btn-lg btn-block text-light" role="button" onclick="return_goods()" id="return_good" >申請退貨</a>   
             </div>
         </div>
     
