@@ -59,7 +59,8 @@
                     </div>
                 </div>
                 <a class="btn btn-success btn-lg btn-block mt-4" href="/member/admin/googleMap" role="button">Google MAP</a>
-                <a class="btn btn-warning btn-lg btn-block" role="button" onclick="check_done()" id='done'>完成訂單</a>   
+                <a class="btn btn-warning btn-lg btn-block" role="button" onclick="check_done()" id='done'>完成訂單</a>  
+                <a class="btn btn-danger btn-lg btn-block" role="button" onclick="return_goods()" id="return_good" >申請退貨</a>   
             </div>
         </div>
     
@@ -70,7 +71,21 @@
        
 </div>
 <script>
-    
+    function return_goods(){
+        var order="{{$id}}"
+        $.ajax({
+            url: '/rest/api/buy/return_good2/'+order,
+            type: 'PATCH',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success:function(data){
+                if(data.success==1){
+                    location.href='/member/admin/check';
+                }
+            }
+        });
+    }
     $(document).ready(function(){
         var id="{{$id}}"
         var shop=Cookies.get('check')
@@ -98,6 +113,7 @@
                         progress.innerHTML='50%'
                         element[1].className+=' text-success';
                         document.getElementById('two').innerHTML=d[0].time2
+                        document.getElementById('return_good').className+=' disabled'
                     }
                     if(d[0].three==1){
                         progress.style.width='75%';

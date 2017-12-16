@@ -267,8 +267,17 @@ class BuyController extends Controller
             return response()->json(['success' => '0']);
         }
         return response()->json(['success'=>'1']);
-
-        
-
+    }
+    public function return_good2($order){
+        try{
+            $flow=new Flowchart;
+            $time=$this->getTime();
+            $flow=$flow::where('id',$order)->update(['exception'=>"退貨,顧客申請"]);
+            return response()->json(['success'=>'1']);
+        }catch(\Exception $e){
+            // echo $e;
+            return response()->json(['success' => '0']);
+        }
+        return response()->json(['success'=>'1']);
     }
 }
