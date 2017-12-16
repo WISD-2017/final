@@ -10,6 +10,11 @@ class ManagerController extends Controller
 {
     //
     public function index(){
-        return "AA";
+        return view('m_index');
     }
+    public function login(){
+        return view('m_login');
+
+    }
+    
 }
