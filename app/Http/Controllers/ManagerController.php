@@ -21,4 +21,7 @@ class ManagerController extends Controller
     public function check(){
         return view('m_check');
     }
+    public function detail($id){
+        return view('m_detail',['id'=>$id]);
+    }
 }

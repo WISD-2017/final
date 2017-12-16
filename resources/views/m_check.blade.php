@@ -43,8 +43,8 @@
                             for(var i=0;i<d.length;i++){
                                 var j=i+1
                                 if(d[i].exception==-1){
-                                    html+="<tr><th scope='row'>"+j+"</th><td>"+d[i].id+"</td><td>"+d[i].shop+"</td><td>"+d[i].user+"</td><td></td><td><a href=/check/"+d[i].id+" onclick=detail("+d[i].shop+")>詳細</a></td></tr>"
-                                }else{html+="<tr><th scope='row'>"+j+"</th><td>"+d[i].id+"</td><td>"+d[i].shop+"</td><td>"+d[i].user+"</td><td>"+d[i].exception+"</td><td><a href=/check/"+d[i].id+" onclick=detail("+d[i].shop+")>詳細</a></td></tr>"
+                                    html+="<tr><th scope='row'>"+j+"</th><td>"+d[i].id+"</td><td>"+d[i].shop+"</td><td>"+d[i].user+"</td><td></td><td><a href=/manger/detail/"+d[i].id+" onclick=detail("+d[i].shop+","+d[i].user+")>詳細</a></td></tr>"
+                                }else{html+="<tr><th scope='row'>"+j+"</th><td>"+d[i].id+"</td><td>"+d[i].shop+"</td><td>"+d[i].user+"</td><td>"+d[i].exception+"</td><td><a href=/manger/detail/"+d[i].id+" onclick=detail("+d[i].shop+","+d[i].user+")>詳細</a></td></tr>"
 
                                 }
                             }
@@ -55,29 +55,10 @@
                     }
                 });
         });
-        function detail(shop){
+        function detail(shop,user){
             Cookies.set('check',shop)
+            Cookies.set('check_u',user)
         }
-        function ban(id,n){
-            console.log(id,n)
-            // var url='/rest/api/manger/ban_shop/'+id+'/'+n
-
-            $.ajax({
-                // url: url,
-                dataType: "json",
-                type: 'patch',
-                headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                success:function(data){
-                    if(data.success==1){
-                        location.reload();
-                    }
-                }
-                        
-                       
-                    
-            });
-        }
+        
     </script>
 @endsection
