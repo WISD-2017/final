@@ -27,6 +27,31 @@
         var flag=false;
         var flag2=false;
         var flag3=false;
+        $(document).ready(function(){
+            $.ajax({
+                url: '/rest/api/manger/setting',
+                dataType: "json",
+                type: 'get',
+                success:function(data){
+                    if(data.success==1){
+                        var data=data.data
+                        console.log(data)
+                        var html=""
+                        for(var i=0;i<data.length;i++){
+                            if(i==0)
+                                html+="<div class='carousel-item active'><img class='d-block w-100' src='img/"+data[i]+"'></div>"
+                            else{
+                                html+="<div class='carousel-item'><img class='d-block w-100' src='img/"+data[i]+"'></div>"
+                            }
+                        }
+                    document.getElementById('run').innerHTML=html
+                    }
+                }            
+            });
+            // <div class="carousel-item active">
+            //     <img class="d-block w-100" src="img/1.jpg" alt="First slide">
+            // </div>
+        });
         function reg(){
             
             document.getElementById('warning').innerHTML=''
@@ -158,7 +183,7 @@
             </div>
             <div class="col-lg-5">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
+                    <div class="carousel-inner" id="run">
                         <div class="carousel-item active">
                             <img class="d-block w-100" src="img/1.jpg" alt="First slide">
                         </div>
