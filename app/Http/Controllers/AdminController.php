@@ -138,12 +138,17 @@ class AdminController extends Controller
         $id=$this->search_member($request['id']);
         try{
             $order=$order::where(['user_id'=>$id])->orderBy('updated_at','desc')->take(8)->get();
-            
+            $flow=new Flowchart;
+            foreach($order as $a){
+                $f=$flow::where('id',$a->id)->first();
+                
+                $data[]=array('id'=>$a->id,'created_at'=>$a->created_at,'exception'=>$f->exception,'user_id'=>$a->user_id,'shop_id'=>$a->shop_id);
+            }
         }catch(\Exception $e){
-            //echo $e;
+            // echo $e;
             return response()->json(['success' => '0']);
         }
-        return response()->json(['success' => '1','data'=>$order]);
+        return response()->json(['success' => '1','data'=>$data]);
     }
     public function notic($id){
         $order=new Orderlist;

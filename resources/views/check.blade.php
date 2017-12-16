@@ -29,9 +29,12 @@
                     
                     var html=""
                     for(var i=0;i<data.length;i++){
-                         html+="<div class='col-6 mt-3'><div class='card'>"
-                         html+="<div class='card-body'><h4 class='card-title'>訂單編號："+data[i].id+"</h4><h6 class='card-subtitle mb-2 text-muted'>"+data[i].created_at+"</h6>"
-                         html+="<a href=check/"+data[i].id+" onclick=detail("+data[i].shop_id+")>詳細</a></div></div></div>"
+                        if(data[i].exception==-1){
+                            html+="<div class='col-6 mt-3'><div class='card'>"
+                            html+="<div class='card-body'><h4 class='card-title'>訂單編號："+data[i].id+"</h4><h6 class='card-subtitle mb-2 text-muted'>"+data[i].created_at.date.split('.')[0]+"</h6>"
+                            html+="<a href=check/"+data[i].id+" onclick=detail("+data[i].shop_id+")>詳細</a></div></div></div>"
+                        }
+                         
                     }
                     
                     document.getElementById('content').innerHTML=html;

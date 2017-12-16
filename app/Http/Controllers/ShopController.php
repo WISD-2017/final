@@ -259,7 +259,7 @@ class ShopController extends Controller
             
             foreach($order as $a){
                 $f=$flow::where('id',$a->id)->first();
-                echo $a->create_at;
+                // echo $a->create_at;
                  $data[]=array('id'=>$a->id,'created_at'=>$a->created_at,'exception'=>$f->exception,'user_id'=>$a->user_id);
             }
             
