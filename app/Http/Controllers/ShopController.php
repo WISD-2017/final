@@ -208,7 +208,7 @@ class ShopController extends Controller
                     $locate="台北";
                     break;
                 case 2:
-                    $locate="台中";
+                    $locate="台中";
                     break;
             }
             if($num>=6&&$num<12){
