@@ -203,9 +203,15 @@ class AdminController extends Controller
         return response()->json(['success' => '1','data'=>$flow,'data2'=>$data2]);
     }
     public function chat(Request $request){
-        $chat1=$request['chat1'];
-        echo $chat1;
-
+        try{
+            $user=new user;
+            $user->user_id=$request['id'];
+            $user->chat=$request['chatText'];
+            $user->save();
+        }catch(\Exception $e){
+            return response()->json(['success' => '0']);
+        }
+        return response()->json(['success' => '1']);
     }
 
 }

@@ -177,7 +177,6 @@ class BuyController extends Controller
         }
         return response()->json(['success'=>'1','data'=>$data,'order'=>$order,'food'=>$ll,'user'=>$us]);
     }
-
     public function shop_check($check,$order){
         
         try{
