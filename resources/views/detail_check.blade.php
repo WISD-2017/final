@@ -54,7 +54,7 @@
                             <p>地址：<small id="addr"></smaill></p>
                             <p>Emial：<small id="email"></smaill></p>
                             <div class='text-right'>
-                                <a href="/member/admin/talk" class="card-link">聯絡店家</a>
+                                <a href="/member/admin/talk" class="card-link" onclick="connect()">聯絡店家</a>
                             </div>
                     </div>
                 </div>
@@ -71,6 +71,12 @@
        
 </div>
 <script>
+    function connect(){
+        var id=document.getElementById('email').innerHTML
+        console.log(id)
+        Cookies.set('connect',id);
+    }
+
     function return_goods(){
         var order="{{$id}}"
         $.ajax({

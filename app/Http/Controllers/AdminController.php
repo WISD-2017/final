@@ -10,6 +10,7 @@ use App\Http\Model\Shop;
 use App\Http\Model\Orderlist;
 use App\Http\Model\Lists;
 use App\Http\Model\Flowchart;
+use App\Http\Model\Chat;
 
 class AdminController extends Controller
 {
@@ -202,16 +203,32 @@ class AdminController extends Controller
         }
         return response()->json(['success' => '1','data'=>$flow,'data2'=>$data2]);
     }
-    public function chat(Request $request){
+    public function chat(Request $request,Shop $shop){
         try{
-            $user=new user;
-            $user->user_id=$request['id'];
-            $user->chat=$request['chatText'];
-            $user->save();
+            $id=$this->search_member($request['id']);
+            $shop=$shop::where('email',$request['shop_id'])->first();
+            $chat1=new Chat;
+            $chat1->user_id=$id;
+            $chat1->chat1=$request['chatText'];
+            $chat1->chat2=null;
+            $chat1->shop_id=$shop->id;
+            $chat1->save();
         }catch(\Exception $e){
+//            echo $e;
             return response()->json(['success' => '0']);
         }
         return response()->json(['success' => '1']);
     }
+    public function getshop(Request $request,Shop $shop){
+        try{
+            $shop=new shop;
+            $ans=$shop->where('email',$request['id'])->first()->shop_name;
 
+        }
+        catch(\Exception $e){
+         //   echo $e;
+            return response()->json(['success'=>'0']);
+        }
+        return response()->json(['success'=>'1','data'=>$ans]);
+    }
 }
