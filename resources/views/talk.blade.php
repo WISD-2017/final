@@ -4,7 +4,7 @@
 
     <h1>聊天室</h1>
     <div class="row " style="overflow-y: hidden;">
-        <div class="col-2 "style="background-color:papayawhip" id="shoplist">
+        <div class="col-2 " id="shoplist"style="background-color:papayawhip">
             {{--<div id="list-example" class="list-group" >--}}
                 {{--<a class="list-group-item list-group-item-action" href="#list-item-1">Item 1</a>--}}
             {{--</div>--}}
@@ -78,12 +78,19 @@
                     if(data.success==1){
                         var data=data.data;
                         console.log(data);
-                        var html="<div id='list-example'class='list-group'><a class='list-group-item list-group-item-action' href='#list-item-1'>"+data+"</a></div>"
+                        var html="<div id='list-example'class='list-group text-center'><a class='list-group-item list-group-item-action' id='shop"+data+"' style='background-color:#f8f9fa;position:absolute;left:0px;width:100%' onclick='get_talk()' href='#list-item-1'>"+data+"</a></div>"
                         document.getElementById('shoplist').innerHTML+=html;
+                        var shopname = document.getElementById("shop"+data);
+                        console.log(shopname);
+                        if(shopname.content==1){
+                            shopname.innerHTML+="<div id='list-example'class='list-group text-center'><a class='list-group-item list-group-item-action' id='shop"+data+"' style='background-color: #007bff;color:#fff;position:absolute;left:0px;width:100%' onclick='get_talk()' href='#list-item-1'>"+data+"</a></div>"
+                        }
                     }
                 }
             }) ;
-
+        }
+        function get_talk(){
+            //var
         }
 
     </script>
