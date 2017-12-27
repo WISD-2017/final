@@ -40,4 +40,7 @@ class StoreController extends Controller
     public function map(){
         return view('shop_map');
     }
+    public function talk2(){
+        return view('talk4');
+    }
 }

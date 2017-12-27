@@ -74,7 +74,7 @@
             var height=$(document).height();
             document.getElementById('chat_div').style.height=(height-190)+"px";
         });
-        //未完
+        
         function get_talk(){
             var url=location.href.split('/')
             url=url[url.length-1]
@@ -93,14 +93,21 @@
                     if(data.success==1){
                         var d=data.data
                         var html=""
+                        var html2=""
                         for(var i=0;i<d.length;i++){
-                            if(d.chat1!="null"){
+                            if(d[i].chat1!="null"){
+                                console.log("AA")
                                 html+="<br><div class='tooltip bs-tooltip-left bs-tooltip-left-docs mt-1' role='tooltip' style='opacity: 1;right:10px;'><div class='arrow mt-3'></div><div class='tooltip-inner'>"+d[i].chat1+"</div></div><br>"
-                            }else if(d.chat2!="null"){
-                                html+=""
+                                html2+="<br><br>"
+                            }
+                            if(d[i].chat2!="null"){
+                                
+                                html2+="<br><div class='tooltip bs-tooltip-right bs-tooltip-right-docs mt-1' role='tooltip' style='opacity: 1;left:10px;'><div class='arrow mt-3'></div><div class='tooltip-inner'>"+d[i].chat2+"</div></div><br>"
+                                html+="<br><br>"
                             }
                             
                         }
+                        document.getElementById('chatyou').innerHTML+=html2
                         document.getElementById('chatme').innerHTML+=html;
                     }
                 }

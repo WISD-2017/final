@@ -11,7 +11,7 @@ use App\Http\Model\Orderlist;
 use App\Http\Model\Lists;
 use App\Http\Model\Flowchart;
 use App\Http\Model\Foodlist;
-
+use App\Http\Model\Chat;
 
 class ShopController extends Controller
 {
@@ -293,5 +293,43 @@ class ShopController extends Controller
         }
        return response()->json(['success' => '1','data'=>$data,'data2'=>$data2]);
         
+    }
+    public function getuser(Request $request,Chat $chat){
+        try{
+            $id=$this->Get_Shop_Id($request['id']);
+            $chat_id=$chat::where('shop_id',$id)->distinct()->pluck('user_id');
+            $user=new user;
+            
+            if($chat_id->count()>0){
+                foreach($chat_id as $c){   
+                    $user=$user->where('id',$c)->first();
+                    $data[]=array('user_id'=>$c,'user'=>$user->email);
+                }
+                
+            }
+            else{
+                return response()->json(['success'=>'1','data'=>'0']);
+            }
+
+        }
+        catch(\Exception $e){
+            return response()->json(['success'=>'0']);
+        }
+        return response()->json(['success'=>'1','data'=> $data]);
+    }
+    public function chat(Request $request,Chat $caht){
+         try{
+            $id=$this->Get_Shop_Id($request['id']);
+            $chat1=new Chat;
+            $chat1->shop_id=$id;
+            $chat1->chat1="null";
+            $chat1->chat2=$request['chatText'];
+            $chat1->user_id=$request['userid'];
+            $chat1->save();
+        }catch(\Exception $e){
+            echo $e;
+            return response()->json(['success' => '0']);
+        }
+        return response()->json(['success' => '1']);
     }
 }

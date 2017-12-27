@@ -25,6 +25,7 @@ Route::group(['prefix' => 'store/admin'],function(){
     Route::get('goods_update/{id}','StoreController@goods_update');
     Route::get('/setting','StoreController@setting');
     Route::get('/talk','StoreController@talk');
+   Route::get('/talk/{id}','StoreController@talk2');
     Route::get('/check','StoreController@check');
     Route::get('check/{id}','StoreController@detailcheck');
     Route::get('/shop_revenue_details','StoreController@shop_revenue_details');
@@ -79,6 +80,8 @@ Route::group(['prefix'=>'rest/api/shop'],function(){
     Route::delete('goods_delete','ShopController@goods_delete');#刪除貨物
     Route::get('/check','ShopController@check');
     Route::post('/notic/{id}','ShopController@notic');
+    Route::get('/getuser','ShopController@getuser');#顧客
+    Route::post('/chat','ShopController@chat');
 });
 Route::group(['prefix'=>'rest/api/buy'],function(){
     Route::post('/get_goods','BuyController@get_goods');//結帳_得到物品
