@@ -82,6 +82,7 @@ Route::group(['prefix'=>'rest/api/shop'],function(){
     Route::post('/notic/{id}','ShopController@notic');
     Route::get('/getuser','ShopController@getuser');#顧客
     Route::post('/chat','ShopController@chat');
+    Route::post('/get_chat','ShopController@get_chat');
 });
 Route::group(['prefix'=>'rest/api/buy'],function(){
     Route::post('/get_goods','BuyController@get_goods');//結帳_得到物品

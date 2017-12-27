@@ -20,7 +20,6 @@ class ShopController extends Controller
         $user->email=$email;
         $ans=$user->where('email',$user->email)->first()->id;
         return $ans;
-
     }
     public function goods_update(Request $request){
         $foodlist=new foodlist;
@@ -331,5 +330,17 @@ class ShopController extends Controller
             return response()->json(['success' => '0']);
         }
         return response()->json(['success' => '1']);
+    }
+    public function get_chat(Request $request,Chat $chat){
+       
+         $id=$this->Get_Shop_Id($request['id']);
+         $user_id=$request['shop_id'];
+        
+         try{
+            $chat=$chat::where('shop_id',$id)->where('user_id',$user_id)->orderBy('id','ASC')->get();
+         }catch(\Exception $e){
+              return response()->json(['success'=>'0']);
+         }
+         return response()->json(['success'=>'1','data'=>$chat]);
     }
 }

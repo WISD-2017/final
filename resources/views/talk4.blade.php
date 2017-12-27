@@ -46,42 +46,47 @@
         $(document).ready(function(){
             add2()
             getuser();
-            // get_talk();
+            get_talk();
             var height=$(document).height();
             document.getElementById('chat_div').style.height=(height-190)+"px";
         });
         //未完
-        // function get_talk(){
-        //     var url=location.href.split('/')
-        //     url=url[url.length-1]
-        //     var member=Cookies.get('shop');
-        //     console.log(member,url)
-        //     $.ajax({
-        //         url:'/rest/api/shop/get_chat',
-        //         dataType: "json",
-        //         type: 'post',
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         },
-        //         data:{id:member,shop_id:url},
-        //         success:function(data) {
-        //             console.log(data)
-        //             if(data.success==1){
-        //                 var d=data.data
-        //                 var html=""
-        //                 for(var i=0;i<d.length;i++){
-        //                     if(d.chat1!="null"){
-        //                         html+="<br><div class='tooltip bs-tooltip-left bs-tooltip-left-docs mt-1' role='tooltip' style='opacity: 1;right:10px;'><div class='arrow mt-3'></div><div class='tooltip-inner'>"+d[i].chat1+"</div></div><br>"
-        //                     }else if(d.chat2!="null"){
-        //                         html+=""
-        //                     }
+        function get_talk(){
+            var url=location.href.split('/')
+            url=url[url.length-1]
+            var member=Cookies.get('shop');
+            console.log(member,url)
+            $.ajax({
+                url:'/rest/api/shop/get_chat',
+                dataType: "json",
+                type: 'post',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:{id:member,shop_id:url},
+                success:function(data) {
+                    console.log(data)
+                    if(data.success==1){
+                        var d=data.data
+                        var html=""
+                        var html2=""
+                        for(var i=0;i<d.length;i++){
+                            if(d[i].chat2!="null"){
+                                html+="<br><div class='tooltip bs-tooltip-left bs-tooltip-left-docs mt-1' role='tooltip' style='opacity: 1;right:10px;'><div class='arrow mt-3'></div><div class='tooltip-inner'>"+d[i].chat2+"</div></div><br>"
+                                html2+="<br><br>"
+                            }
+                            if(d[i].chat1!="null"){
+                                html2+="<br><div class='tooltip bs-tooltip-right bs-tooltip-right-docs mt-1' role='tooltip' style='opacity: 1;left:10px;'><div class='arrow mt-3'></div><div class='tooltip-inner'>"+d[i].chat1+"</div></div><br>"
+                                html+="<br><br>"
+                            }
                             
-        //                 }
-        //                 document.getElementById('chatme').innerHTML+=html;
-        //             }
-        //         }
-        //     });
-        // }
+                        }
+                        document.getElementById('chatyou').innerHTML+=html2
+                        document.getElementById('chatme').innerHTML+=html;
+                    }
+                }
+            });
+        }
         //chat send
         function send(){
             var url=location.href.split('/')
@@ -120,7 +125,7 @@
             document.getElementById('list1').innerHTML+=html
         }
         function set_talk(id){
-            console.log(id)
+            //console.log(id)
             Cookies.set('talk_user',id)
         }
         //list
@@ -137,7 +142,7 @@
                 success:function(data) {
                     if(data.success==1){
                         var data=data.data;
-                        console.log(data)
+                       // console.log(data)
                         var html=""
                         if(data==0){
                             
@@ -148,7 +153,7 @@
                                 if(data[i].user_id!=url)
                                     html+="<a class='list-group-item list-group-item-action' href='/store/admin/talk/"+data[i].user_id+"' onclick=set_talk('"+data[i].user+"')>"+data[i].user+"</a>"
                             }
-                            console.log(data)
+                           // console.log(data)
                              document.getElementById("list1").innerHTML+=html
                         }
                     }
