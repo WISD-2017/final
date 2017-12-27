@@ -74,6 +74,7 @@
             var height=$(document).height();
             document.getElementById('chat_div').style.height=(height-190)+"px";
         });
+        //未完
         function get_talk(){
             var url=location.href.split('/')
             url=url[url.length-1]
@@ -90,8 +91,17 @@
                 success:function(data) {
                     console.log(data)
                     if(data.success==1){
-                        // var html="<br><div class='tooltip bs-tooltip-left bs-tooltip-left-docs mt-1' role='tooltip' style='opacity: 1;right:10px;'><div class='arrow mt-3'></div><div class='tooltip-inner'>"+a.value+"</div></div><br>"
-                        // document.getElementById('chatme').innerHTML+=html;
+                        var d=data.data
+                        var html=""
+                        for(var i=0;i<d.length;i++){
+                            if(d.chat1!="null"){
+                                html+="<br><div class='tooltip bs-tooltip-left bs-tooltip-left-docs mt-1' role='tooltip' style='opacity: 1;right:10px;'><div class='arrow mt-3'></div><div class='tooltip-inner'>"+d[i].chat1+"</div></div><br>"
+                            }else if(d.chat2!="null"){
+                                html+=""
+                            }
+                            
+                        }
+                        document.getElementById('chatme').innerHTML+=html;
                     }
                 }
             });
