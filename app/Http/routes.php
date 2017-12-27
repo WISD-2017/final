@@ -35,6 +35,7 @@ Route::group(['prefix' => 'member/admin'],function(){
     Route::get('/','MemberController@index');#通知
     Route::get('/setting','MemberController@setting');
     Route::get('/talk','MemberController@talk');
+    Route::get('/talk/{id}','MemberController@talk2');
     Route::get('/googleMap','MemberController@map');#訂單ＧＯＯＧＬＥ
     Route::get('/check','MemberController@check');#訂單瀏覽
     Route::get('/check/{id}','MemberController@detailcheck');#詳細資訊
@@ -61,6 +62,7 @@ Route::group(['prefix' => 'rest/api'], function () {
     Route::post('check/map','AdminController@map');#map api
     Route::post('/chat','AdminController@chat');#文字聊天訊息
     Route::get('/getshop','AdminController@getshop');#文字聊天訊息
+    Route::get('/addshop_name','AdminController@addshop_name');
 });
  #shop api
 Route::group(['prefix'=>'rest/api/shop'],function(){
@@ -103,4 +105,5 @@ Route::group(['prefix'=>'rest/api/manger'],function(){
     Route::post('update','MController@update');
     Route::post('del','MController@del');
 });
+
 

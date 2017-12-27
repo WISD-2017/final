@@ -203,32 +203,53 @@ class AdminController extends Controller
         }
         return response()->json(['success' => '1','data'=>$flow,'data2'=>$data2]);
     }
-    public function chat(Request $request,Shop $shop){
+    public function chat(Request $request){
         try{
             $id=$this->search_member($request['id']);
-            $shop=$shop::where('email',$request['shop_id'])->first();
             $chat1=new Chat;
             $chat1->user_id=$id;
             $chat1->chat1=$request['chatText'];
-            $chat1->chat2=null;
-            $chat1->shop_id=$shop->id;
+            $chat1->chat2="null";
+            $chat1->shop_id=$request['shop_id'];
             $chat1->save();
         }catch(\Exception $e){
-//            echo $e;
+            echo $e;
             return response()->json(['success' => '0']);
         }
         return response()->json(['success' => '1']);
     }
-    public function getshop(Request $request,Shop $shop){
+    public function getshop(Request $request,Chat $chat){
         try{
-            $shop=new shop;
-            $ans=$shop->where('email',$request['id'])->first()->shop_name;
+            $id=$this->search_member($request['id']);
+            $chat_id=$chat::where('user_id',$id)->distinct()->pluck('shop_id');
+            $shop=new Shop;
+            
+            if($chat_id->count()>0){
+                foreach($chat_id as $c){   
+                    $shop=$shop->where('id',$c)->first();
+                    $data[]=array('shop_id'=>$c,'shop_name'=>$shop->shop_name);
+                }
+                
+            }
+            else{
+                return response()->json(['success'=>'1','data'=>'0']);
+            }
 
         }
         catch(\Exception $e){
-         //   echo $e;
+            echo $e;
             return response()->json(['success'=>'0']);
         }
-        return response()->json(['success'=>'1','data'=>$ans]);
+        return response()->json(['success'=>'1','data'=> $data]);
+    }
+    public function addshop_name(Request $request,Shop $shop){
+        $id=$request['shop'];
+        try{
+            $shop=$shop->where('shop_name',$id)->first();
+            $data[]=array('id'=>$shop->id,'shop_name'=>$shop->shop_name);     
+        }catch(\Exception $e){
+            return response()->json(['success'=>'0']);
+        }
+        return response()->json(['success'=>'1','data'=>$data]);
     }
 }

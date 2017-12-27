@@ -17,7 +17,6 @@ class MemberController extends Controller
         return view('setting');
     }
     public function talk(){
-
         return view("talk");
     }
 
@@ -29,5 +28,8 @@ class MemberController extends Controller
     }
     public function map(){
         return  view('google_map');
+    }
+    public function talk2($id){
+        return view('talk3',['id',$id]);
     }
 }

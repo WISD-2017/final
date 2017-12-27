@@ -37,6 +37,9 @@
             </form></div>
         </div>
     </div>
+
+
+
     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -64,15 +67,46 @@
     </div>
     <script>
         $(document).ready(function(){
+            add2()
             get_shop();
             var x = document.getElementsByTagName("BODY")[0];
             x.style.hidden = "hidden";
         });
         
-        
+        function send(){
+            var url=location.href.split('/')
+            url=url[url.length-1]
+            var shopid=url
+            var a=document.getElementById('chat');
+            var member=Cookies.get('member');
+            $.ajax({
+                url:'/rest/api/chat',
+                dataType: "json",
+                type: 'post',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:{id:member,chatText:a.value,shop_id:shopid},
+                success:function(data) {
+                    if(data.success==1){
+                        
+                        document.getElementById('chatme').innerHTML+=html;
+                    }
+                }
+            });
+        }
+        function add2(){
+            url=location.href.split('/')
+
+            url=url[url.length-1]
+            console.log(url)
+            var name=Cookies.get('talk_shop')
+            
+            var html="<a class='list-group-item list-group-item-action'>"+name+"</a>"
+            document.getElementById('list1').innerHTML+=html
+        }
         function get_shop(){
             var member=Cookies.get('member');
-            console.log(member)
             $.ajax({
                 url:'/rest/api/getshop',
                 dataType: "json",
@@ -86,9 +120,12 @@
                             
                         }
                         else{
-                            var d=data.data
                            
                         }
+                      
+                        
+                    
+                        
                     }
                 }
             }) ;
@@ -104,8 +141,7 @@
                     success:function(data) {
                         if(data.success==1){
                             data=data.data
-                            var html="<a class='list-group-item list-group-item-action' href='/member/admin/talk/"+data[0].id+"' onclick=set_talk('"+data[0].shop_name+"')>"+data[0].shop_name+"</a>"
-                            
+                            var html="<a class='list-group-item list-group-item-action' href='"+data[0].id+"'>"+data[0].shop_name+"</a>"
                             document.getElementById("list1").innerHTML+=html
                         }
                         else{
@@ -115,10 +151,6 @@
                  });
             }
             
-        }
-        function set_talk(id){
-            console.log(id)
-            Cookies.set('talk_shop',id)
         }
         
     </script>
