@@ -86,8 +86,12 @@
                             
                         }
                         else{
-                            var d=data.data
-                           
+                            var html='';
+                            for(var i=0;i<data.length;i++){
+                                html+="<a class='list-group-item list-group-item-action' href='/member/admin/talk/"+data[i].shop_id+"' onclick=set_talk('"+data[i].shop_name+"')>"+data[i].shop_name+"</a>"
+                            }
+                            console.log(data)
+                             document.getElementById("list1").innerHTML+=html
                         }
                     }
                 }

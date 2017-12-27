@@ -89,15 +89,15 @@
                 data:{id:member,chatText:a.value,shop_id:shopid},
                 success:function(data) {
                     if(data.success==1){
-                        
+                        var html="<br><div class='tooltip bs-tooltip-left bs-tooltip-left-docs mt-1' role='tooltip' style='opacity: 1;right:10px;'><div class='arrow mt-3'></div><div class='tooltip-inner'>"+a.value+"</div></div><br>"
                         document.getElementById('chatme').innerHTML+=html;
                     }
                 }
             });
         }
+
         function add2(){
             url=location.href.split('/')
-
             url=url[url.length-1]
             console.log(url)
             var name=Cookies.get('talk_shop')
@@ -117,10 +117,10 @@
                         var data=data.data;
                         var html=""
                         if(data==0){
-                            
+                        //省略
                         }
                         else{
-                           
+                           console.log(data)
                         }
                       
                         
