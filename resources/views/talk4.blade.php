@@ -49,6 +49,7 @@
             get_talk();
             var height=$(document).height();
             document.getElementById('chat_div').style.height=(height-190)+"px";
+             setInterval("get_talk()",3000);
         });
         //未完
         function get_talk(){
@@ -81,8 +82,8 @@
                             }
                             
                         }
-                        document.getElementById('chatyou').innerHTML+=html2
-                        document.getElementById('chatme').innerHTML+=html;
+                        document.getElementById('chatyou').innerHTML=html2
+                        document.getElementById('chatme').innerHTML=html;
                     }
                 }
             });
