@@ -12,7 +12,7 @@
         </div>
 
         <div class="col-10">
-            <div class="row" id="chat_div" style="height: 600px;overflow-y: scroll;">
+            <div class="row" id="chat_div" style="height: 500px;overflow-y: scroll;">
                 <div class="col-md-6" id="chatyou"></div>
                 <div class="col-md-6 " id="chatme">
                     <div class="tooltip bs-tooltip-left bs-tooltip-left-docs mt-1" role="tooltip" style='opacity: 0;right:10px;'>
@@ -66,19 +66,28 @@
         </div>
     </div>
     <script>
+    //static
         $(document).ready(function(){
             add2()
             get_shop();
-            var x = document.getElementsByTagName("BODY")[0];
-            x.style.hidden = "hidden";
+            get_talk();
+            var height=$(document).height();
+            document.getElementById('chat_div').style.height=(height-190)+"px";
         });
-        
+        function get_talk(){
+            var url=location.href.split('/')
+            url=url[url.length-1]
+            var member=Cookies.get('member');
+            console.log(member,url)
+        }
+        //chat send
         function send(){
             var url=location.href.split('/')
             url=url[url.length-1]
             var shopid=url
             var a=document.getElementById('chat');
             var member=Cookies.get('member');
+
             $.ajax({
                 url:'/rest/api/chat',
                 dataType: "json",
@@ -95,18 +104,29 @@
                 }
             });
         }
-
+        //list
         function add2(){
+            var x = document.getElementsByTagName("BODY")[0];
+            console.log(x)
+            x.style.overflow  = "hidden";
+            
             url=location.href.split('/')
             url=url[url.length-1]
             console.log(url)
             var name=Cookies.get('talk_shop')
-            
-            var html="<a class='list-group-item list-group-item-action'>"+name+"</a>"
+            // "<a class='list-group-item list-group-item-action' href='/member/admin/talk/"+data[0].id+"' onclick=set_talk('"+data[0].shop_name+"')>"+data[0].shop_name+"</a>"
+            var html="<a class='list-group-item list-group-item-action' href='/member/admin/talk/"+url+"' onclick=set_talk('"+name+"')>"+name+"</a>"
             document.getElementById('list1').innerHTML+=html
         }
+        function set_talk(id){
+            console.log(id)
+            Cookies.set('talk_shop',id)
+        }
+        //list
         function get_shop(){
             var member=Cookies.get('member');
+            var url=location.href.split('/')
+            url=url[url.length-1]
             $.ajax({
                 url:'/rest/api/getshop',
                 dataType: "json",
@@ -120,17 +140,20 @@
                         //省略
                         }
                         else{
-                           console.log(data)
-                        }
-                      
-                        
-                    
-                        
+                            var html='';
+                            for(var i=0;i<data.length;i++){
+                                if(data[i].shop_id!=url)
+                                    html+="<a class='list-group-item list-group-item-action' href='/member/admin/talk/"+data[i].shop_id+"' onclick=set_talk('"+data[i].shop_name+"')>"+data[i].shop_name+"</a>"
+                            }
+                            console.log(data)
+                             document.getElementById("list1").innerHTML+=html
+                        }   
                     }
                 }
             }) ;
         }
-        function add_talk(){
+        //list
+       function add_talk(){
             var addshopname=document.getElementById('addshopname').value;
             if(addshopname.length>0){
                 $.ajax({
@@ -141,7 +164,8 @@
                     success:function(data) {
                         if(data.success==1){
                             data=data.data
-                            var html="<a class='list-group-item list-group-item-action' href='"+data[0].id+"'>"+data[0].shop_name+"</a>"
+                            var html="<a class='list-group-item list-group-item-action' href='/member/admin/talk/"+data[0].id+"' onclick=set_talk('"+data[0].shop_name+"')>"+data[0].shop_name+"</a>"
+                            
                             document.getElementById("list1").innerHTML+=html
                         }
                         else{
@@ -152,6 +176,6 @@
             }
             
         }
-        
+       
     </script>
 @endsection

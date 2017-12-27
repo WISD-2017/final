@@ -66,7 +66,9 @@
         $(document).ready(function(){
             get_shop();
             var x = document.getElementsByTagName("BODY")[0];
-            x.style.hidden = "hidden";
+            x.style.overflow  = "hidden";
+            var height=$(document).height();
+            document.getElementById('chat_div').style.height=(height-190)+"px";
         });
         
         
