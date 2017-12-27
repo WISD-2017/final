@@ -79,6 +79,22 @@
             url=url[url.length-1]
             var member=Cookies.get('member');
             console.log(member,url)
+            $.ajax({
+                url:'/rest/api/get_chat',
+                dataType: "json",
+                type: 'post',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:{id:member,shop_id:url},
+                success:function(data) {
+                    console.log(data)
+                    if(data.success==1){
+                        // var html="<br><div class='tooltip bs-tooltip-left bs-tooltip-left-docs mt-1' role='tooltip' style='opacity: 1;right:10px;'><div class='arrow mt-3'></div><div class='tooltip-inner'>"+a.value+"</div></div><br>"
+                        // document.getElementById('chatme').innerHTML+=html;
+                    }
+                }
+            });
         }
         //chat send
         function send(){
@@ -107,14 +123,13 @@
         //list
         function add2(){
             var x = document.getElementsByTagName("BODY")[0];
-            console.log(x)
+            //console.log(x)
             x.style.overflow  = "hidden";
             
             url=location.href.split('/')
             url=url[url.length-1]
-            console.log(url)
+            //console.log(url)
             var name=Cookies.get('talk_shop')
-            // "<a class='list-group-item list-group-item-action' href='/member/admin/talk/"+data[0].id+"' onclick=set_talk('"+data[0].shop_name+"')>"+data[0].shop_name+"</a>"
             var html="<a class='list-group-item list-group-item-action' href='/member/admin/talk/"+url+"' onclick=set_talk('"+name+"')>"+name+"</a>"
             document.getElementById('list1').innerHTML+=html
         }
@@ -145,7 +160,7 @@
                                 if(data[i].shop_id!=url)
                                     html+="<a class='list-group-item list-group-item-action' href='/member/admin/talk/"+data[i].shop_id+"' onclick=set_talk('"+data[i].shop_name+"')>"+data[i].shop_name+"</a>"
                             }
-                            console.log(data)
+                            //console.log(data)
                              document.getElementById("list1").innerHTML+=html
                         }   
                     }

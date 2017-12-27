@@ -61,8 +61,9 @@ Route::group(['prefix' => 'rest/api'], function () {
     Route::post('/notic/{id}','AdminController@notic');
     Route::post('check/map','AdminController@map');#map api
     Route::post('/chat','AdminController@chat');#文字聊天訊息
-    Route::get('/getshop','AdminController@getshop');#文字聊天訊息
+    Route::get('/getshop','AdminController@getshop');#店家
     Route::get('/addshop_name','AdminController@addshop_name');
+    Route::post('/get_chat','AdminController@get_chat');#得到詳細訊息
 });
  #shop api
 Route::group(['prefix'=>'rest/api/shop'],function(){

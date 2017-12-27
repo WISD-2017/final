@@ -252,4 +252,14 @@ class AdminController extends Controller
         }
         return response()->json(['success'=>'1','data'=>$data]);
     }
+    public function get_chat(Request $request,Chat $chat){
+         $id=$this->search_member($request['id']);
+         $shop_id=$request['shop_id'];
+         try{
+            $chat=$chat::where('user_id',$id)->where('shop_id',$shop_id)->orderBy('id','ASC')->get();
+         }catch(\Exception $e){
+              return response()->json(['success'=>'0']);
+         }
+         return response()->json(['success'=>'1','data'=>$chat]);
+    }
 }
