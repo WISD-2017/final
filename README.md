@@ -1,7 +1,7 @@
 # Laravel PHP Framework
 
 
-Route::get('/login','ManagerController@login'); 註冊AMMIN
+Route::get('/login','ManagerController@login'); 註冊ADMIN
 
 
 
