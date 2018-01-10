@@ -15,7 +15,7 @@
 
 require __DIR__.'/bootstrap/autoload.php';
 
-$app = require_once __DIR__.'/bootstrap/app.php';
+//$app = require_once __DIR__.'/bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +46,6 @@ $status = $kernel->handle(
 |
 */
 
-$kernel->terminate($input, $status);
+//$kernel->terminate($input, $status);
 
 exit($status);
